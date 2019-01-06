@@ -13,13 +13,13 @@ module "vpc" {
 
   vpc_tags = "${
     map(
-     "kubernetes.io/cluster/${var.cluster-name}", "shared",
+     "kubernetes.io/cluster/${var.cluster_name}", "shared",
     )
   }"
 
   private_subnet_tags = "${
     map(
-     "kubernetes.io/cluster/${var.cluster-name}", "shared",
+     "kubernetes.io/cluster/${var.cluster_name}", "shared",
     )
   }"
 

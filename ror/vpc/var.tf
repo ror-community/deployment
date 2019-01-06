@@ -16,6 +16,6 @@ variable "public_subnets"{
     type = "list"
 }
 
-variable "cluster-name" {
+variable "cluster_name" {
   default = "ror"
 }
