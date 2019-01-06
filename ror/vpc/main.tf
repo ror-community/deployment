@@ -11,6 +11,20 @@ module "vpc" {
   enable_nat_gateway = true
   enable_vpn_gateway = true
 
+  vpc_tags = "${
+    map(
+     "Name", "ror",
+     "kubernetes.io/cluster/${var.cluster-name}", "shared",
+    )
+  }"
+
+  private_subnet_tags = "${
+    map(
+     "Name", "ror",
+     "kubernetes.io/cluster/${var.cluster-name}", "shared",
+    )
+  }"
+
   tags = {
     Terraform = "true"
   }

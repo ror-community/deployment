@@ -15,3 +15,7 @@ variable "private_subnets"{
 variable "public_subnets"{
     type = "list"
 }
+
+variable "cluster-name" {
+  default = "ror"
+}
