@@ -21,7 +21,10 @@ resource "aws_route53_record" "public-ns" {
 
 resource "aws_route53_zone" "internal" {
     name = "ror.org"
-    vpc  = ["${var.vpc_id}"]
+    
+    vpc {
+        vpc_id = "${var.vpc_id}"
+    }
 
     tags {
         Environment = "internal"
