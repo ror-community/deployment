@@ -6,6 +6,12 @@ variable "region" {
 
 variable "vpc_name" {}
 variable "vpc_cidr" {}
-variable "azs" {}
-variable "private_subnets" {}
-variable "public_subnets" {}
+variable "azs" {
+    type = "list"
+}
+variable "private_subnets"{
+    type = "list"
+}
+variable "public_subnets"{
+    type = "list"
+}
