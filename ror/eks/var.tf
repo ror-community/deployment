@@ -5,7 +5,7 @@ variable "region" {
 }
 
 variable "vpc_id" {}
-variable "private_subnets" {
+variable "private_subnet_ids" {
     type = "list"
 }
 variable "cluster_name" {
