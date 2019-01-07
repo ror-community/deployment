@@ -37,6 +37,32 @@ resource "aws_elasticsearch_domain_policy" "ror" {
   access_policies = "${file("elasticsearch_policy.json")}"
 }
 
+resource "aws_iam_role" "service-role-for-elasticsearch" {
+  name               = "AWSServiceRoleForAmazonElasticsearchService"
+  path               = "/system/"
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1480452973134",
+            "Action": [
+                "ec2:CreateNetworkInterface",
+                "ec2:DeleteNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:ModifyNetworkInterfaceAttribute",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcs"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_route53_record" "elasticsearch-ror" {
    zone_id = "${data.aws_route53_zone.internal.zone_id}"
    name = "elasticsearch.ror.org"
