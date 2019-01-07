@@ -5,7 +5,7 @@
             "Action": "es:*",
             "Principal": "*",
             "Effect": "Allow",
-            "Resource": "arn:aws:es:eu-west-1:datacite:domain/*"
+            "Resource": "arn:aws:es:eu-west-1:ror:domain/*"
         }
     ]
 }

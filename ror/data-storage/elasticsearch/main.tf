@@ -1,3 +1,7 @@
+resource "aws_iam_service_linked_role" "es" {
+  aws_service_name = "es.amazonaws.com"
+}
+
 resource "aws_elasticsearch_domain" "ror" {
   domain_name           = "elasticsearch-ror"
   elasticsearch_version = "6.3"
@@ -35,31 +39,6 @@ resource "aws_elasticsearch_domain_policy" "ror" {
   domain_name = "${aws_elasticsearch_domain.ror.domain_name}"
 
   access_policies = "${file("elasticsearch_policy.json")}"
-}
-
-resource "aws_iam_role" "service-role-for-elasticsearch" {
-  name               = "ServiceRoleForAmazonElasticsearchService"
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "Stmt1480452973134",
-            "Action": [
-                "ec2:CreateNetworkInterface",
-                "ec2:DeleteNetworkInterface",
-                "ec2:DescribeNetworkInterfaces",
-                "ec2:ModifyNetworkInterfaceAttribute",
-                "ec2:DescribeSecurityGroups",
-                "ec2:DescribeSubnets",
-                "ec2:DescribeVpcs"
-            ],
-            "Effect": "Allow",
-            "Resource": "*"
-        }
-    ]
-}
-EOF
 }
 
 resource "aws_route53_record" "elasticsearch-ror" {
