@@ -38,8 +38,7 @@ resource "aws_elasticsearch_domain_policy" "ror" {
 }
 
 resource "aws_iam_role" "service-role-for-elasticsearch" {
-  name               = "AWSServiceRoleForAmazonElasticsearchService"
-  path               = "/system/"
+  name               = "ServiceRoleForAmazonElasticsearchService"
   assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
