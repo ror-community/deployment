@@ -14,6 +14,6 @@ data "aws_route53_zone" "internal" {
   private_zone = true
 }
 
-data "aws_lb" "default" {
-  name = "${var.lb_name}"
+data "aws_lb" "alb" {
+  name = "alb"
 }
