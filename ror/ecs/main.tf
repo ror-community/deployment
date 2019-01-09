@@ -12,7 +12,7 @@ module "ecs_fargate" {
 }
 
 resource "aws_iam_role" "ecs_tasks_execution_role" {
-  name               = "ecs-task-execution-role"
+  name               = "ecs_task_execution_role"
   assume_role_policy = "${data.aws_iam_policy_document.ecs_tasks_execution_role.json}"
 }
 

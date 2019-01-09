@@ -39,7 +39,7 @@ resource "aws_cloudwatch_log_group" "api" {
 
 resource "aws_ecs_task_definition" "api" {
   family = "api"
-  execution_role_arn = "${data.aws_iam_role.ecs_task_execution_role.arn}",
+  execution_role_arn = "${data.aws_iam_role.ecs_tasks_execution_role.arn}",
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu = "1024"
