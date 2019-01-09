@@ -18,12 +18,8 @@ data "aws_ecs_cluster" "default" {
   cluster_name = "ror"
 }
 
-data "aws_iam_role" "ecs_service" {
-  name = "ecs_service"
-}
-
-data "aws_iam_role" "ecs_task_execution_role" {
-  name = "ecsTaskExecutionRole"
+data "aws_iam_role" "ecs_tasks_execution_role" {
+  name = "ecs-task-execution-role"
 }
 
 data "aws_lb" "default" {
