@@ -19,7 +19,7 @@ data "aws_ecs_cluster" "default" {
 }
 
 data "aws_iam_role" "ecs_tasks_execution_role" {
-  name = "ecs-task-execution-role"
+  name = "ecs_task_execution_role"
 }
 
 data "aws_lb" "default" {
