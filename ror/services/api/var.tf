@@ -20,3 +20,6 @@ variable "es_host" {
 variable "es_name" {
   default = "es"
 }
+variable "ror-api_tags" {
+  type = "map"
+}
