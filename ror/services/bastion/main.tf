@@ -25,7 +25,7 @@ resource "aws_route53_record" "bastion" {
     name = "${var.hostname}.ror.org"
     type = "A"
     ttl = "${var.ttl}"
-    records = ["${aws_instance.bastion.public_ip}"]
+    records = ["${aws_eip.bastion.public_ip}"]
 }
 
 resource "aws_route53_record" "split-bastion" {
