@@ -7,3 +7,16 @@ variable "region" {
 variable "ttl" {
   default = "300"
 }
+
+variable "vpc_id" {}
+variable "private_subnet_ids" {
+    type = "list"
+}
+variable "private_security_group_id" {}
+
+variable "es_host" {
+  default = "elasticsearch.ror.org"
+}
+variable "es_name" {
+  default = "es"
+}

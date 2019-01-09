@@ -14,6 +14,35 @@ data "aws_route53_zone" "internal" {
   private_zone = true
 }
 
-data "aws_lb" "alb" {
+data "aws_ecs_cluster" "default" {
+  cluster_name = "ror"
+}
+
+data "aws_iam_role" "ecs_service" {
+  name = "ecs_service"
+}
+
+data "aws_iam_role" "ecs_task_execution_role" {
+  name = "ecsTaskExecutionRole"
+}
+
+data "aws_lb" "default" {
   name = "alb"
+}
+
+data "aws_lb_listener" "default" {
+  load_balancer_arn = "${data.aws_lb.default.arn}"
+  port = 443
+}
+
+data "template_file" "api_task" {
+  template = "${file("api.json")}"
+
+  vars {
+    es_host            = "${var.es_host}"
+    es_name            = "${var.es_name}"
+    access_key         = "${var.access_key}"
+    secret_key         = "${var.secret_key}"
+    region             = "${var.region}"
+  }
 }
