@@ -1,9 +1,9 @@
 [
   {
     "name": "api",
-    "image": "rorcommunity/ror-api",
-    "cpu": 1024,
-    "memory": 2048,
+    "image": "rorcommunity/ror-api:latest",
+    "cpu": 512,
+    "memory": 1024,
     "networkMode": "awsvpc",
     "essential": true,
     "portMappings": [
@@ -52,6 +52,10 @@
       {
         "name" : "AWS_REGION",
         "value" : "${region}"
+      },
+      {
+        "name" : "GITHUB_VERSION",
+        "value" : "${version}"
       }
     ]
   }

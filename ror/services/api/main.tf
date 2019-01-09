@@ -42,8 +42,8 @@ resource "aws_ecs_task_definition" "api" {
   execution_role_arn = "${data.aws_iam_role.ecs_tasks_execution_role.arn}",
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu = "1024"
-  memory = "2048"
+  cpu = "512"
+  memory = "1024"
 
   container_definitions =  "${data.template_file.api_task.rendered}"
 }
