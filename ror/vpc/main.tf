@@ -69,3 +69,27 @@ resource "aws_security_group" "ecs_service_sg" {
     Name = "fargate-ecs-service-sg"
   }
 }
+
+resource "aws_security_group" "private" {
+  name = "private"
+  description = "Managed by Terraform"
+  vpc_id = "${module.vpc.vpc_id}"
+
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "private"
+  }
+}
