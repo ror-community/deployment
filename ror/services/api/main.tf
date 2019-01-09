@@ -17,7 +17,7 @@ resource "aws_ecs_service" "api" {
   }
 
   depends_on = [
-    "data.aws_lb_listener.default",
+    "data.aws_lb_listener.default"
   ]
 }
 
@@ -28,8 +28,8 @@ resource "aws_lb_target_group" "api" {
   vpc_id   = "${var.vpc_id}"
   target_type = "ip"
 
-  stickiness {
-    type   = "lb_cookie"
+  health_check {
+    path = "/heartbeat"
   }
 }
 
