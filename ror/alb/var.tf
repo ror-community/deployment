@@ -11,4 +11,3 @@ variable "private_subnet_ids" {
 variable "security_group_ids" {
     type = "list"
 }
-variable "certificate_arn" {}

@@ -12,3 +12,12 @@ data "template_file" "logs" {
     bucket_name = "logs.ror.org"
   }
 }
+
+data "aws_lb_target_group" "api" {
+  name = "api"
+}
+
+data "aws_acm_certificate" "ror" {
+  domain = "*.ror.org"
+  statuses = ["ISSUED"]
+}
