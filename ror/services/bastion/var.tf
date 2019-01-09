@@ -4,6 +4,7 @@ variable "region" {
     default = "eu-west-1"
 }
 variable "vpc_id" {}
+variable "vpc_cidr" {}
 
 variable "ami" {
   type = "map"
