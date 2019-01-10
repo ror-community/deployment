@@ -23,7 +23,7 @@ resource "aws_route53_zone" "internal" {
     name = "ror.org"
     
     vpc {
-        vpc_id = "${var.vpc_id}"
+        vpc_id = "${module.vpc.vpc_id}"
     }
 
     tags {

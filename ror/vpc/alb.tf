@@ -2,12 +2,12 @@ module "alb" {
   source                        = "terraform-aws-modules/alb/aws"
 
   load_balancer_name            = "alb"
-  security_groups               = "${var.security_group_ids}"
+  security_groups               = ["${aws_security_group.lb.id}"]
   log_bucket_name               = "${aws_s3_bucket.logs.bucket}"
   log_location_prefix           = "alb-logs"
   subnets                       = "${var.private_subnet_ids}"
   tags                          = "${map("Environment", "production")}"
-  vpc_id                        = "${data.aws_vpc.vpc.id}"
+  vpc_id                        = "${module.vpc.vpc_id}"
 }
 
 resource "aws_s3_bucket" "logs" {
