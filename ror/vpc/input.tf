@@ -24,10 +24,6 @@ data "template_file" "logs" {
   }
 }
 
-data "aws_lb" "alb" {
-  name = "alb"
-}
-
 data "aws_lb_target_group" "api" {
   name = "api"
 }
