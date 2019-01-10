@@ -6,7 +6,6 @@ module "ecs_fargate" {
 
   vpc_id = "${var.vpc_id}"
   subnet_ids = ["${var.private_subnet_ids}"]
-  vpc_security_group_ids = ["${module.ecs_instance_sg.this_security_group_id}","${module.admin_sg.this_security_group_id}"]
 
   create_roles                    = false
   create_autoscalinggroup         = false

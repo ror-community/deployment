@@ -15,3 +15,7 @@ data "aws_iam_policy_document" "ecs_tasks_execution_role" {
     }
   }
 }
+
+data "aws_route53_zone" "zone" {
+  name  = "ror.org."
+}
