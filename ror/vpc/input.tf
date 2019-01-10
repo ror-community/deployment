@@ -15,3 +15,34 @@ data "aws_iam_policy_document" "ecs_tasks_execution_role" {
     }
   }
 }
+
+data "template_file" "logs" {
+  template = "${file("s3_write_access.json")}"
+
+  vars {
+    bucket_name = "logs.ror.org"
+  }
+}
+
+data "aws_route53_zone" "public" {
+  name = "ror.org"
+}
+
+data "aws_route53_zone" "internal" {
+  name = "ror.org"
+  private_zone = true
+}
+
+data "aws_lb" "alb" {
+  name = "alb"
+}
+
+data "aws_lb_target_group" "api" {
+  name = "api"
+}
+
+data "aws_acm_certificate" "ror" {
+  domain = "*.ror.org"
+  statuses = ["ISSUED"]
+}
+
