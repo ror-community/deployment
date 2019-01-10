@@ -7,7 +7,7 @@ module "alb" {
   log_location_prefix           = "alb-logs"
   subnets                       = "${var.private_subnet_ids}"
   tags                          = "${map("Environment", "production")}"
-  vpc_id                        = "${data.terraform_remote_state.vpc.module.vpc.vpc_id}"
+  vpc_id                        = "${data.terraform_remote_state.vpc.vpc_id}"
 }
 
 resource "aws_s3_bucket" "logs" {
