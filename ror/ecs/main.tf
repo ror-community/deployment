@@ -7,7 +7,7 @@ module "ecs_fargate" {
   vpc_id = "${var.vpc_id}"
   subnet_ids = ["${var.private_subnet_ids}"]
 
-  create_roles                    = false
+  create_roles                    = true
   create_autoscalinggroup         = false
 }
 
