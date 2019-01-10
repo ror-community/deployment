@@ -5,12 +5,8 @@ provider "aws" {
   version    = "~> 1.6"
 }
 
-data "terraform_remote_state" "vpc" {
-  backend = "atlas"
-
-  config {
-    name = "datacite-ng/ror-vpc"
-  }
+data "aws_vpc" "vpc" {
+  id = "${var.vpc_id}"
 }
 
 data "template_file" "logs" {
