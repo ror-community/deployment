@@ -24,15 +24,6 @@ data "template_file" "logs" {
   }
 }
 
-data "aws_route53_zone" "public" {
-  name = "ror.org"
-}
-
-data "aws_route53_zone" "internal" {
-  name = "ror.org"
-  private_zone = true
-}
-
 data "aws_lb" "alb" {
   name = "alb"
 }
