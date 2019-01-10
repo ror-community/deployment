@@ -8,7 +8,7 @@ provider "aws" {
 data "terraform_remote_state" "vpc" {
   backend = "atlas"
   workspace = "${terraform.workspace}"
-  
+
   config {
     name = "ror/vpc"
   }
