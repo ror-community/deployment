@@ -40,6 +40,7 @@ data "template_file" "api_task" {
     access_key         = "${var.access_key}"
     secret_key         = "${var.secret_key}"
     region             = "${var.region}"
+    public_key         = "${var.public_key}"
     version            = "${var.ror-api_tags["sha"]}"
   }
 }

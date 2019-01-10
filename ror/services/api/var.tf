@@ -23,3 +23,5 @@ variable "es_name" {
 variable "ror-api_tags" {
   type = "map"
 }
+
+variable "public_key" {}
