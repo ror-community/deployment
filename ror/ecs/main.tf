@@ -6,13 +6,14 @@ module "ecs_fargate" {
 
   vpc_id = "${var.vpc_id}"
   subnet_ids = ["${var.private_subnet_ids}"]
+  vpc_security_group_ids = ["${module.ecs_instance_sg.this_security_group_id}","${module.admin_sg.this_security_group_id}"]
 
   create_roles                    = false
   create_autoscalinggroup         = false
 }
 
 resource "aws_iam_role" "ecs_tasks_execution_role" {
-  name               = "ecs_task_execution_role"
+  name               = "ecs-task-execution-role"
   assume_role_policy = "${data.aws_iam_policy_document.ecs_tasks_execution_role.json}"
 }
 
