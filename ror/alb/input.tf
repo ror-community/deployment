@@ -5,6 +5,13 @@ provider "aws" {
   version    = "~> 1.6"
 }
 
+data "terraform_remote_state" "vpc" {
+  backend = "atlas"
+  config {
+    name = "ror/vpc"
+  }
+}
+
 data "template_file" "logs" {
   template = "${file("s3_write_access.json")}"
 
