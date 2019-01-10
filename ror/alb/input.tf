@@ -10,7 +10,7 @@ data "terraform_remote_state" "vpc" {
   workspace = "${terraform.workspace}"
 
   config {
-    name = "ror/vpc"
+    name = "datacite-ng/ror-vpc"
   }
 }
 
