@@ -62,7 +62,7 @@ resource "aws_route53_record" "split-api" {
   type = "A"
 
   alias {
-    name = "${aws_service_discovery_service.neo.name}.${aws_service_discovery_private_dns_namespace.internal.name}"
+    name = "${aws_service_discovery_service.api.name}.${aws_service_discovery_private_dns_namespace.internal.name}"
     zone_id = "${aws_service_discovery_private_dns_namespace.internal.hosted_zone}"
     evaluate_target_health = true
   }
