@@ -10,6 +10,10 @@ resource "aws_ecs_service" "api" {
     subnets         = ["${var.private_subnet_ids}"]
   }
 
+  service_registries {
+    registry_arn = "${aws_service_discovery_service.api.arn}"
+  }
+
   load_balancer {
     target_group_arn = "${aws_lb_target_group.api.id}"
     container_name   = "api"
