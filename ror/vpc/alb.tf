@@ -5,7 +5,7 @@ module "alb" {
   security_groups               = ["${aws_security_group.lb_sg.id}"]
   log_bucket_name               = "${aws_s3_bucket.logs.bucket}"
   log_location_prefix           = "alb-logs"
-  subnets                       = "${module.vpc.private_subnets}"
+  subnets                       = "${module.vpc.public_subnets}"
   tags                          = "${map("Environment", "production")}"
   vpc_id                        = "${module.vpc.vpc_id}"
 }
