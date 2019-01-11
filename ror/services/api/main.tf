@@ -28,9 +28,9 @@ resource "aws_lb_target_group" "api" {
   vpc_id   = "${var.vpc_id}"
   target_type = "ip"
 
-  // health_check {
-  //   path = "/heartbeat"
-  // }
+  health_check {
+    path = "/heartbeat"
+  }
 }
 
 resource "aws_cloudwatch_log_group" "api" {
