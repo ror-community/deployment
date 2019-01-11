@@ -8,10 +8,6 @@ resource "aws_iam_role_policy_attachment" "ecs_tasks_execution_role" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-resource "aws_iam_service_linked_role" "ecs" {
-  aws_service_name = "ecs.amazonaws.com"
-}
-
 resource "aws_ecs_cluster" "default" {
   name = "default"
 }
