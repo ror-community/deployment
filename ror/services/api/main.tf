@@ -79,7 +79,7 @@ resource "aws_route53_record" "apex" {
 
   alias {
     name = "${data.aws_lb.default.dns_name}"
-    zone_id = "${data.aws_lb.default.zone.id}"
+    zone_id = "${data.aws_lb.default.zone_id}"
     evaluate_target_health = true
   }
 }
