@@ -1,6 +1,6 @@
 terraform {
-  required_version = ">= 1.55"
-  
+  required_version = ">= 0.11"
+
   backend "atlas" {
     name         = "datacite-ng/ror-bastion"
   }
