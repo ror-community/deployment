@@ -46,5 +46,5 @@ resource "aws_route53_record" "internal-ns" {
 
 resource "aws_service_discovery_private_dns_namespace" "internal" {
   name = "ror.org"
-  vpc = "${var.vpc_id}"
+  vpc = "${module.vpc.vpc_id}"
 }
