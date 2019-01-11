@@ -43,3 +43,8 @@ resource "aws_route53_record" "internal-ns" {
         "${aws_route53_zone.internal.name_servers.3}"
     ]
 }
+
+resource "aws_service_discovery_private_dns_namespace" "internal" {
+  name = "ror.org"
+  vpc = "${var.vpc_id}"
+}
