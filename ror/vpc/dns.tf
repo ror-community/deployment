@@ -44,7 +44,7 @@ resource "aws_route53_record" "internal-ns" {
     ]
 }
 
-resource "aws_service_discovery_private_dns_namespace" "internal" {
-  name = "ror.org"
-  vpc = "${module.vpc.vpc_id}"
-}
+// resource "aws_service_discovery_private_dns_namespace" "internal" {
+//   name = "ror.org"
+//   vpc = "${module.vpc.vpc_id}"
+// }
