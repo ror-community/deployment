@@ -72,6 +72,18 @@ resource "aws_route53_record" "split-api" {
   }
 }
 
+resource "aws_route53_record" "apex" {
+  zone_id = "${data.aws_route53_zone.public.zone_id}"
+  name = "ror.org"
+  type = "A"
+
+  alias {
+    name = "${data.aws_lb.default.dns_name}"
+    zone_id = "${data.aws_lb.default.zone.id}"
+    evaluate_target_health = true
+  }
+}
+
 # Service Discovery Namepace
 resource "aws_service_discovery_private_dns_namespace" "internal" {
   name = "local"
