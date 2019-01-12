@@ -63,13 +63,9 @@ resource "aws_route53_record" "api" {
 resource "aws_route53_record" "split-api" {
   zone_id = "${data.aws_route53_zone.internal.zone_id}"
   name = "api.ror.org"
-  type = "A"
-
-  alias {
-    name = "${aws_service_discovery_service.api.name}.${aws_service_discovery_private_dns_namespace.internal.name}"
-    zone_id = "${aws_service_discovery_private_dns_namespace.internal.hosted_zone}"
-    evaluate_target_health = true
-  }
+  type = "CNAME"
+  ttl = "${var.ttl}"
+  records = ["${data.aws_lb.default.dns_name}"]
 }
 
 resource "aws_route53_record" "apex" {
