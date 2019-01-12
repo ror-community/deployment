@@ -25,3 +25,4 @@ variable "ror-api_tags" {
 }
 
 variable "public_key" {}
+variable "bugsnag_key" {}
