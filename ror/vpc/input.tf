@@ -29,7 +29,7 @@ data "aws_lb_target_group" "api" {
 }
 
 data "aws_acm_certificate" "ror" {
-  domain = "*.ror.org"
+  domain = "ror.org"
   statuses = ["ISSUED"]
 }
 
