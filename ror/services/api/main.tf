@@ -80,6 +80,27 @@ resource "aws_route53_record" "apex" {
   }
 }
 
+resource "aws_lb_listener_rule" "redirect_from_apex" {
+  listener_arn = "${data.aws_lb.default.arn}"
+
+  action {
+    type = "redirect"
+
+    redirect {
+      host        = "api.ror.org"
+      port        = "443"
+      protocol    = "HTTPS"
+      path        = "/organizations/ror.org/#{path}"
+      status_code = "HTTP_302"
+    }
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["ror.org"]
+  }
+}
+
 # Service Discovery Namepace
 resource "aws_service_discovery_private_dns_namespace" "internal" {
   name = "local"
