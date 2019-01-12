@@ -31,15 +31,7 @@
       },
       {
         "name" : "ELASTIC_SEARCH",
-        "value" : "https://${es_host}:9200"
-      },
-      {
-        "name" : "ES_HOST",
-        "value" : "${es_host}"
-      },
-      {
-        "name" : "ES_NAME",
-        "value" : "${es_name}"
+        "value" : "${elastic_search}"
       },
       {
         "name" : "AWS_ACCESS_KEY_ID",

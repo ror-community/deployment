@@ -14,8 +14,8 @@ variable "private_subnet_ids" {
 }
 variable "private_security_group_id" {}
 
-variable "es_host" {
-  default = "elasticsearch.ror.org"
+variable "elastic_search" {
+  default = "http://elasticsearch.ror.org:80"
 }
 variable "es_name" {
   default = "es"
