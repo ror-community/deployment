@@ -81,7 +81,7 @@ resource "aws_route53_record" "apex" {
 }
 
 resource "aws_lb_listener_rule" "redirect_from_apex" {
-  listener_arn = "${data.aws_lb.default.arn}"
+  listener_arn = "${data.aws_lb_listener.default.arn}"
 
   action {
     type = "redirect"
