@@ -1,27 +1,27 @@
-resource "aws_s3_bucket" "app" {
-    bucket = "app.ror.org"
+resource "aws_s3_bucket" "search" {
+    bucket = "search.ror.org"
     acl = "public-read"
-    policy = "${data.template_file.app.rendered}"
+    policy = "${data.template_file.search.rendered}"
     website {
         index_document = "index.html"
     }
     tags {
-        Name = "app"
+        Name = "search"
     }
     versioning {
         enabled = true
     }
 }
 
-resource "aws_cloudfront_origin_access_identity" "app_ror_org" {}
+resource "aws_cloudfront_origin_access_identity" "search_ror_org" {}
 
-resource "aws_cloudfront_distribution" "app" {
+resource "aws_cloudfront_distribution" "search" {
   origin {
-    domain_name = "${aws_s3_bucket.app.bucket_domain_name}"
-    origin_id   = "app.ror.org"
+    domain_name = "${aws_s3_bucket.search.bucket_domain_name}"
+    origin_id   = "search.ror.org"
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.app_ror_org.cloudfront_access_identity_path}"
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.search_ror_org.cloudfront_access_identity_path}"
     }
   }
 
@@ -32,10 +32,10 @@ resource "aws_cloudfront_distribution" "app" {
   logging_config {
     include_cookies = false
     bucket          = "${data.aws_s3_bucket.logs.bucket_domain_name}"
-    prefix          = "app/"
+    prefix          = "search/"
   }
 
-  aliases = ["app.ror.org"]
+  aliases = ["search.ror.org"]
 
   custom_error_response {
     error_code            = "404"
@@ -47,7 +47,7 @@ resource "aws_cloudfront_distribution" "app" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "app.ror.org"
+    target_origin_id = "search.ror.org"
 
     forwarded_values {
       query_string = false
@@ -81,12 +81,12 @@ resource "aws_cloudfront_distribution" "app" {
   }
 }
 
-resource "aws_route53_record" "app" {
+resource "aws_route53_record" "search" {
   zone_id = "${data.aws_route53_zone.public.zone_id}"
   name = "search.ror.org"
   type = "CNAME"
   ttl = "${var.ttl}"
-  records = ["${aws_cloudfront_distribution.app.domain_name}"]
+  records = ["${aws_cloudfront_distribution.search.domain_name}"]
 }
 
 resource "aws_route53_record" "split-doi" {
@@ -94,5 +94,5 @@ resource "aws_route53_record" "split-doi" {
   name = "search.ror.org"
   type = "CNAME"
   ttl = "${var.ttl}"
-  records = ["${aws_cloudfront_distribution.app.domain_name}"]
+  records = ["${aws_cloudfront_distribution.search.domain_name}"]
 }

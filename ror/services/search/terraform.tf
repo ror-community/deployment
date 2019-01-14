@@ -2,6 +2,6 @@ terraform {
   required_version = ">= 0.11"
 
   backend "atlas" {
-    name         = "datacite-ng/ror-app"
+    name         = "datacite-ng/ror-search"
   }
 }

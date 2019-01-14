@@ -12,11 +12,11 @@ provider "aws" {
   alias = "use1"
 }
 
-data "template_file" "app" {
+data "template_file" "search" {
   template = "${file("s3_cloudfront.json")}"
 
   vars {
-    bucket_name = "app.ror.org"
+    bucket_name = "search.ror.org"
   }
 }
 
