@@ -83,7 +83,7 @@ resource "aws_cloudfront_distribution" "app" {
 
 resource "aws_route53_record" "app" {
   zone_id = "${data.aws_route53_zone.public.zone_id}"
-  name = "app.ror.org"
+  name = "search.ror.org"
   type = "CNAME"
   ttl = "${var.ttl}"
   records = ["${aws_cloudfront_distribution.app.domain_name}"]
@@ -91,7 +91,7 @@ resource "aws_route53_record" "app" {
 
 resource "aws_route53_record" "split-doi" {
   zone_id = "${data.aws_route53_zone.internal.zone_id}"
-  name = "app.ror.org"
+  name = "search.ror.org"
   type = "CNAME"
   ttl = "${var.ttl}"
   records = ["${aws_cloudfront_distribution.app.domain_name}"]
