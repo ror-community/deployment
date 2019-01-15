@@ -87,10 +87,10 @@ resource "aws_lb_listener_rule" "redirect_from_apex" {
     type = "redirect"
 
     redirect {
-      host        = "api.ror.org"
+      host        = "search.ror.org"
       port        = "443"
       protocol    = "HTTPS"
-      path        = "/organizations/ror.org/#{path}"
+      path        = "/organizations/ror.org%2F#{path}"
       status_code = "HTTP_302"
     }
   }
