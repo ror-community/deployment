@@ -59,7 +59,7 @@ resource "aws_lb_listener_rule" "redirect_ror_id" {
     type = "redirect"
 
     redirect {
-      host        = "search.ror.org"
+      host        = "${data.aws_s3_bucket.search.website_endpoint}"
       port        = "443"
       protocol    = "HTTPS"
       path        = "/organizations/#{path}"
@@ -85,7 +85,7 @@ resource "aws_lb_listener_rule" "redirect_ror_site" {
     type = "redirect"
 
     redirect {
-      host        = "www.ror.org"
+      host        = "${data.aws_s3_bucket.ror-org-s3.website_endpoint}"
       port        = "443"
       protocol    = "HTTPS"
       status_code = "HTTP_302"

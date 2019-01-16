@@ -44,3 +44,7 @@ data "template_file" "api_task" {
     version            = "${var.ror-api_tags["sha"]}"
   }
 }
+
+data "aws_s3_bucket" "search" {
+  bucket = "search.ror.org"
+}
