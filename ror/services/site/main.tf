@@ -86,7 +86,7 @@ resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
 
   logging_config {
     include_cookies = false
-    bucket          = "${aws_s3_bucket.logs.bucket_domain_name}"
+    bucket          = "${data.aws_s3_bucket.logs.bucket_domain_name}"
 
     prefix = "cf/"
   }
