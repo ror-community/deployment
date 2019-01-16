@@ -34,7 +34,7 @@ EOF
 
 resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.ror-org-s3.website_endpoint}"
+    domain_name = "${aws_s3_bucket.ror-org-s3.bucket_domain_name}"
 
     origin_id = "${aws_s3_bucket.ror-org-s3.bucket_domain_name}"
 
