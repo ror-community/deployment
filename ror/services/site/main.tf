@@ -111,7 +111,7 @@ resource "aws_route53_record" "www" {
 
    alias {
      name = "${aws_cloudfront_distribution.ror-org-cf_distribution.domain_name}"
-     zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.zone_id}"
+     zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.hosted_zone_id}"
      evaluate_target_health = true
    }
 }
@@ -123,7 +123,7 @@ resource "aws_route53_record" "apex" {
 
   alias {
     name = "${aws_cloudfront_distribution.ror-org-cf_distribution.domain_name}"
-    zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.zone_id}"
+    zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.hosted_zone_id}"
     evaluate_target_health = true
   }
 }
