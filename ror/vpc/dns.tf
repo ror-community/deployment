@@ -48,3 +48,17 @@ resource "aws_route53_record" "internal-ns" {
 //   name = "ror.org"
 //   vpc = "${module.vpc.vpc_id}"
 // }
+
+resource "aws_route53_record" "mx-ror" {
+    zone_id = "${aws_route53_zone.public.zone_id}"
+    name = "${aws_route53_zone.public.name}"
+    type = "MX"
+    ttl = "300"
+    records = [
+        "1 aspmx.l.google.com",
+        "5 alt1.aspmx.l.google.com",
+        "5 alt2.aspmx.l.google.com",
+        "10 aspmx2.googlemail.com",
+        "10 aspmx3.googlemail.com"
+    ]
+}
