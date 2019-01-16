@@ -21,11 +21,6 @@ resource "aws_s3_bucket" "ror-org-s3" {
 EOF
   }
 
-  logging {
-    target_bucket = "${data.aws_s3_bucket.logs.id}"
-    target_prefix = "site/"
-  }
-
   tags {
     site        = "ror"
     environment = "production"
