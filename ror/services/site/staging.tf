@@ -19,8 +19,8 @@ resource "aws_route53_record" "site-staging" {
   type = "A"
 
   alias {
-    name = "${aws_s3_bucket.staging-ror-org-s3.dns_name}"
-    zone_id = "${aws_s3_bucket.staging-ror-org-s3.zone_id}"
+    name = "${aws_s3_bucket.staging-ror-org-s3.website_domain}"
+    zone_id = "${aws_s3_bucket.staging-ror-org-s3.hosted_zone_id}"
     evaluate_target_health = true
   }
 }
@@ -31,8 +31,8 @@ resource "aws_route53_record" "split-site-staging" {
   type = "A"
 
   alias {
-    name = "${aws_s3_bucket.staging-ror-org-s3.dns_name}"
-    zone_id = "${aws_s3_bucket.staging-ror-org-s3.zone_id}"
+    name = "${aws_s3_bucket.staging-ror-org-s3.website_domain}"
+    zone_id = "${aws_s3_bucket.staging-ror-org-s3.hosted_zone_id}"
     evaluate_target_health = true
   }
 }
