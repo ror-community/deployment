@@ -14,7 +14,7 @@ resource "aws_s3_bucket" "ror-org-s3" {
     "Redirect": {
         "Hostname": "search.ror.org",
         "HttpRedirectCode": "302",
-        "Protocol": "HTTPS",
+        "Protocol": "https",
         "ReplaceKeyPrefixWith": "organizations/0"
     }
 }]
