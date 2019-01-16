@@ -98,7 +98,7 @@ resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = "${data.aws_acm_certificate.ror-org.arn}"
+    acm_certificate_arn      = "${data.aws_acm_certificate.cloudfront.arn}"
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
