@@ -44,11 +44,6 @@ data "aws_acm_certificate" "cloudfront" {
   statuses = ["ISSUED"]
 }
 
-data "aws_acm_certificate" "ror-org" {
-  domain   = "ror.org"
-  statuses = ["ISSUED"]
-}
-
 data "aws_route53_zone" "public" {
   name         = "ror.org"
 }
