@@ -86,7 +86,7 @@ resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
 
   logging_config {
     include_cookies = false
-    bucket          = "${aws_s3_bucket.logs-ror-org-s3.bucket_domain_name}"
+    bucket          = "${aws_s3_bucket.logs.bucket_domain_name}"
 
     prefix = "cf/"
   }
@@ -111,7 +111,7 @@ resource "aws_route53_record" "www" {
 
    alias {
      name = "${aws_cloudfront_distribution.ror-org-cf_distribution.domain_name}"
-     zone_id = "${var.cloudfront_alias_zone_id}"
+     zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.zone_id}"
      evaluate_target_health = true
    }
 }
@@ -123,7 +123,7 @@ resource "aws_route53_record" "apex" {
 
   alias {
     name = "${aws_cloudfront_distribution.ror-org-cf_distribution.domain_name}"
-    zone_id = "${var.cloudfront_alias_zone_id}"
+    zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.zone_id}"
     evaluate_target_health = true
   }
 }
