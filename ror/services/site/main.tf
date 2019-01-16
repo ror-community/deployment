@@ -109,15 +109,3 @@ resource "aws_route53_record" "www" {
      evaluate_target_health = true
    }
 }
-
-resource "aws_route53_record" "apex" {
-  zone_id = "${data.aws_route53_zone.public.zone_id}"
-  name = "ror.org"
-  type = "A"
-
-  alias {
-    name = "${aws_cloudfront_distribution.ror-org-cf_distribution.domain_name}"
-    zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.hosted_zone_id}"
-    evaluate_target_health = true
-  }
-}
