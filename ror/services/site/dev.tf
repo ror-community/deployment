@@ -19,8 +19,8 @@ resource "aws_route53_record" "site-dev" {
   type = "A"
 
   alias {
-    name = "${data.aws_s3_bucket.dev-ror-org-s3.dns_name}"
-    zone_id = "${data.aws_s3_bucket.dev-ror-org-s3.zone_id}"
+    name = "${aws_s3_bucket.dev-ror-org-s3.dns_name}"
+    zone_id = "${aws_s3_bucket.dev-ror-org-s3.zone_id}"
     evaluate_target_health = true
   }
 }
@@ -31,8 +31,8 @@ resource "aws_route53_record" "split-site-dev" {
   type = "A"
 
   alias {
-    name = "${data.aws_s3_bucket.dev-ror-org-s3.dns_name}"
-    zone_id = "${data.aws_s3_bucket.dev-ror-org-s3.zone_id}"
+    name = "${aws_s3_bucket.dev-ror-org-s3.dns_name}"
+    zone_id = "${aws_s3_bucket.dev-ror-org-s3.zone_id}"
     evaluate_target_health = true
   }
 }
