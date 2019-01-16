@@ -59,6 +59,9 @@ resource "aws_lb_listener_rule" "redirect_ror_id" {
     type = "redirect"
 
     redirect {
+      host        = "search.ror.org"
+      port        = "443"
+      protocol    = "HTTPS"
       path        = "/organizations/#{path}"
       status_code = "HTTP_302"
     }
@@ -71,7 +74,7 @@ resource "aws_lb_listener_rule" "redirect_ror_id" {
 
   condition {
     field  = "host-header"
-    values = ["search.ror.org"]
+    values = ["api.ror.org"]
   }
 }
 
