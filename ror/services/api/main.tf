@@ -68,39 +68,6 @@ resource "aws_route53_record" "split-api" {
   records = ["${data.aws_lb.default.dns_name}"]
 }
 
-resource "aws_route53_record" "apex" {
-  zone_id = "${data.aws_route53_zone.public.zone_id}"
-  name = "ror.org"
-  type = "A"
-
-  alias {
-    name = "${data.aws_lb.default.dns_name}"
-    zone_id = "${data.aws_lb.default.zone_id}"
-    evaluate_target_health = true
-  }
-}
-
-resource "aws_lb_listener_rule" "redirect_from_apex" {
-  listener_arn = "${data.aws_lb_listener.default.arn}"
-
-  action {
-    type = "redirect"
-
-    redirect {
-      host        = "search.ror.org"
-      port        = "443"
-      protocol    = "HTTPS"
-      path        = "/organizations/#{path}"
-      status_code = "HTTP_302"
-    }
-  }
-
-  condition {
-    field  = "host-header"
-    values = ["ror.org"]
-  }
-}
-
 # Service Discovery Namepace
 resource "aws_service_discovery_private_dns_namespace" "internal" {
   name = "local"
