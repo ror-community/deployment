@@ -30,22 +30,22 @@ resource "aws_cloudfront_origin_access_identity" "ror_org" {}
 
 resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.ror-org-s3.bucket_domain_name}"
+    domain_name = "${aws_s3_bucket.ror-org-s3.website_endpoint}"
     origin_id = "${aws_s3_bucket.ror-org-s3.bucket_domain_name}"
 
-    s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
-    }
+    // s3_origin_config {
+    //   origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
+    // }
 
     # This allows requests for / to serve up /index.html which cloudfront won't do
     # There is a simpler configuration that doesn't require this, but it won't translate
     # a request for / to one for /index.html  This is what enables that to work
-    // custom_origin_config {
-    //   http_port              = 80
-    //   https_port             = 443
-    //   origin_protocol_policy = "http-only"
-    //   origin_ssl_protocols   = ["SSLv3", "TLSv1"]
-    // }
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["SSLv3", "TLSv1"]
+    }
   }
 
   tags {
