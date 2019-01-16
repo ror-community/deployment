@@ -9,13 +9,12 @@ resource "aws_s3_bucket" "ror-org-s3" {
     routing_rules = <<EOF
 [{
     "Condition": {
-        "KeyPrefixEquals": "0"
+        "HttpErrorCodeReturnedEquals": "404"
     },
     "Redirect": {
-        "Hostname": "search.ror.org",
+        "Hostname": "api.ror.org",
         "HttpRedirectCode": "302",
-        "Protocol": "https",
-        "ReplaceKeyPrefixWith": "organizations/0"
+        "Protocol": "https"
     }
 }]
 EOF

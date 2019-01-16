@@ -52,6 +52,29 @@ resource "aws_ecs_task_definition" "api" {
   container_definitions =  "${data.template_file.api_task.rendered}"
 }
 
+resource "aws_lb_listener_rule" "redirect_ror_id" {
+  listener_arn = "${data.aws_lb_listener.default.arn}"
+
+  action {
+    type = "redirect"
+
+    redirect {
+      path        = "/organizations/#{path}"
+      status_code = "HTTP_302"
+    }
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/0*"]
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["search.ror.org"]
+  }
+}
+
 resource "aws_route53_record" "api" {
     zone_id = "${data.aws_route53_zone.public.zone_id}"
     name = "api.ror.org"
