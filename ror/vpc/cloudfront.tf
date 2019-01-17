@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   aliases             = ["ror.org", "search.ror.org"]
-  # default_root_object = "index.html"
+  default_root_object = "index.html"
   enabled             = "true"
 
   # You can override this per object, but for our purposes, this is fine for everything
