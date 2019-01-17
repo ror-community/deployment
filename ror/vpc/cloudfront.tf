@@ -22,12 +22,12 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   # needed for Ember applications, but safe for static sites
-  custom_error_response {
-    error_code            = "404"
-    error_caching_min_ttl = "5"
-    response_code         = "200"
-    response_page_path    = "/index.html"
-  }
+  // custom_error_response {
+  //   error_code            = "404"
+  //   error_caching_min_ttl = "5"
+  //   response_code         = "200"
+  //   response_page_path    = "/index.html"
+  // }
 
   aliases             = ["ror.org", "search.ror.org"]
   default_root_object = "index.html"
