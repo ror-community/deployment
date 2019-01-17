@@ -57,7 +57,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/search*"
+    path_pattern     = "search*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "search.ror.org"
@@ -88,7 +88,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/0*"
+    path_pattern     = "0*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "search.ror.org"
