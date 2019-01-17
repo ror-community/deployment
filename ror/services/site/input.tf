@@ -56,3 +56,7 @@ data "aws_route53_zone" "internal" {
 data "aws_s3_bucket" "logs" {
   bucket = "logs.ror.org"
 }
+
+data "aws_iam_role" "iam_for_lambda" {
+  name = "iam_for_lambda"
+}

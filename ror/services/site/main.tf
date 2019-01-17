@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
     environment = "production"
   }
 
-  aliases             = ["www.ror.org"]
+  aliases             = ["ror.org", "www.ror.org"]
   default_root_object = "index.html"
   enabled             = "true"
 
@@ -99,4 +99,16 @@ resource "aws_route53_record" "www" {
      zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.hosted_zone_id}"
      evaluate_target_health = true
    }
+}
+
+resource "aws_route53_record" "apex" {
+  zone_id = "${data.aws_route53_zone.public.zone_id}"
+  name = "ror.org"
+  type = "A"
+
+  alias {
+    name = "${aws_cloudfront_distribution.ror-org-cf_distribution.domain_name}"
+    zone_id = "${aws_cloudfront_distribution.ror-org-cf_distribution.hosted_zone_id}" 
+    evaluate_target_health = true
+  }
 }

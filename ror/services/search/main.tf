@@ -5,39 +5,6 @@ resource "aws_s3_bucket" "search" {
 
     website {
         index_document = "index.html"
-
-        routing_rules = <<EOF
-    [{
-        "Condition": {
-            "KeyPrefixEquals": "about/"
-        },
-        "Redirect": {
-            "Hostname": "www.ror.org",
-            "HttpRedirectCode": "302",
-            "Protocol": "https"
-        }
-    },
-    {
-        "Condition": {
-            "KeyPrefixEquals": "blog/"
-        },
-        "Redirect": {
-            "Hostname": "www.ror.org",
-            "HttpRedirectCode": "302",
-            "Protocol": "https"
-        }
-    },
-    {
-        "Condition": {
-            "KeyPrefixEquals": "scope/"
-        },
-        "Redirect": {
-            "Hostname": "www.ror.org",
-            "HttpRedirectCode": "302",
-            "Protocol": "https"
-        }
-    }]
-    EOF
     }
 
     tags {
@@ -70,7 +37,7 @@ resource "aws_cloudfront_distribution" "search" {
     prefix          = "search/"
   }
 
-  aliases = ["ror.org", "search.ror.org"]
+  aliases = ["search.ror.org"]
 
   custom_error_response {
     error_code            = "404"
@@ -130,16 +97,4 @@ resource "aws_route53_record" "split-search" {
   type = "CNAME"
   ttl = "${var.ttl}"
   records = ["${aws_cloudfront_distribution.search.domain_name}"]
-}
-
-resource "aws_route53_record" "apex" {
-  zone_id = "${data.aws_route53_zone.public.zone_id}"
-  name = "ror.org"
-  type = "A"
-
-  alias {
-    name = "${aws_cloudfront_distribution.search.domain_name}"
-    zone_id = "${aws_cloudfront_distribution.search.hosted_zone_id}" 
-    evaluate_target_health = true
-  }
 }
