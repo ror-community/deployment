@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
     environment = "production"
   }
 
-  aliases             = ["ror.org", "www.ror.org"]
+  aliases             = ["www.ror.org"]
   default_root_object = "index.html"
   enabled             = "true"
 
