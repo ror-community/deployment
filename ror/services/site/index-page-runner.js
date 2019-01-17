@@ -1,5 +1,6 @@
 const path = require('path');
 
+
 exports.handler = (event, context, callback) => {
   const { request } = event.Records[0].cf;
   
