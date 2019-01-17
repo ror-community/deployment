@@ -54,7 +54,7 @@ resource "aws_cloudfront_origin_access_identity" "search_ror_org" {}
 resource "aws_cloudfront_distribution" "search" {
   origin {
     domain_name = "${aws_s3_bucket.search.bucket_domain_name}"
-    origin_id   = "ror.org"
+    origin_id   = "search.ror.org"
 
     s3_origin_config {
       origin_access_identity = "${aws_cloudfront_origin_access_identity.search_ror_org.cloudfront_access_identity_path}"
