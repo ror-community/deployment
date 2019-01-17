@@ -87,6 +87,12 @@ resource "aws_cloudfront_distribution" "site" {
     # look at your S3 bucket for changes once per day.
     default_ttl            = 86400
     max_ttl                = 2592000
+
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = "${aws_lambda_function.redirect.qualified_arn}"
+      include_body = false
+    }
   }
 
   ordered_cache_behavior {
@@ -112,55 +118,13 @@ resource "aws_cloudfront_distribution" "site" {
     # look at your S3 bucket for changes once per day.
     default_ttl            = 86400
     max_ttl                = 2592000
-  }
 
-  ordered_cache_behavior {
-    path_pattern     = "index.html"
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "search.ror.org"
-
-    forwarded_values {
-      query_string = true
-
-      cookies {
-        forward = "none"
-      }
-    }
-
-    # This says to redirect http to https
-    viewer_protocol_policy = "redirect-to-https"
-    compress               = "true"
-    min_ttl                = 0
-
-    # default cache time in seconds.  This is 1 day, meaning CloudFront will only
-    # look at your S3 bucket for changes once per day.
-    default_ttl            = 86400
-    max_ttl                = 2592000
-  }
-
-  logging_config {
-    include_cookies = false
-    bucket          = "${data.aws_s3_bucket.logs.bucket_domain_name}"
-
-    prefix = "cf/"
-  }
-
-  restrictions {
-    geo_restriction {
-      restriction_type = "none"
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = "${aws_lambda_function.redirect.qualified_arn}"
+      include_body = false
     }
   }
-
-  viewer_certificate {
-    acm_certificate_arn      = "${data.aws_acm_certificate.cloudfront.arn}"
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1"
-  }
-
-  // depends_on = [
-  //   "data.aws_lambda_function.index-page"
-  // ]
 }
 
 resource "aws_cloudfront_origin_access_identity" "ror_org" {}
