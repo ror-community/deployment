@@ -21,6 +21,14 @@ resource "aws_cloudfront_distribution" "site" {
     environment = "production"
   }
 
+  # needed for Ember applications, but safe for static sites
+  custom_error_response {
+    error_code            = "404"
+    error_caching_min_ttl = "5"
+    response_code         = "200"
+    response_page_path    = "/index.html"
+  }
+
   aliases             = ["ror.org", "search.ror.org"]
   default_root_object = "index.html"
   enabled             = "true"
@@ -79,13 +87,6 @@ resource "aws_cloudfront_distribution" "site" {
     # look at your S3 bucket for changes once per day.
     default_ttl            = 86400
     max_ttl                = 2592000
-
-    custom_error_response {
-      error_code            = "404"
-      error_caching_min_ttl = "5"
-      response_code         = "200"
-      response_page_path    = "/index.html"
-    }
   }
 
   ordered_cache_behavior {
@@ -111,19 +112,6 @@ resource "aws_cloudfront_distribution" "site" {
     # look at your S3 bucket for changes once per day.
     default_ttl            = 86400
     max_ttl                = 2592000
-
-    // lambda_function_association {
-    //   event_type   = "origin-request"
-    //   lambda_arn   = "${aws_lambda_function.index-page.qualified_arn}"
-    //   include_body = false
-    // }
-
-    custom_error_response {
-      error_code            = "404"
-      error_caching_min_ttl = "5"
-      response_code         = "200"
-      response_page_path    = "/index.html"
-    }
   }
 
   logging_config {
