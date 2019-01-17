@@ -49,11 +49,11 @@ resource "aws_cloudfront_distribution" "site" {
     default_ttl            = 86400
     max_ttl                = 2592000
 
-    lambda_function_association {
-      event_type   = "origin-request"
-      lambda_arn   = "${aws_lambda_function.index-page.qualified_arn}"
-      include_body = false
-    }
+    // lambda_function_association {
+    //   event_type   = "origin-request"
+    //   lambda_arn   = "${aws_lambda_function.index-page.qualified_arn}"
+    //   include_body = false
+    // }
   }
 
   logging_config {
@@ -75,9 +75,9 @@ resource "aws_cloudfront_distribution" "site" {
     minimum_protocol_version = "TLSv1"
   }
 
-  depends_on = [
-    "data.aws_lambda_function.index-page"
-  ]
+  // depends_on = [
+  //   "data.aws_lambda_function.index-page"
+  // ]
 }
 
 resource "aws_cloudfront_origin_access_identity" "ror_org" {}
