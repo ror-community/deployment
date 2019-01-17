@@ -14,6 +14,8 @@
 // }
 
 resource "aws_lambda_function" "index-page" {
+  provider = "aws.use1"
+  
   filename = "index-page-runner.js.zip"
   function_name = "index-page"
   role = "${data.aws_iam_role.iam_for_lambda.arn}"
