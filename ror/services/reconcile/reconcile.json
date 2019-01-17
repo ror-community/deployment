@@ -46,10 +46,6 @@
         "value": "${public_key}"
       },
       {
-        "name": "BUGSNAG_KEY",
-        "value": "${bugsnag_key}"
-      },
-      {
         "name": "GITHUB_VERSION",
         "value": "${version}"
       }

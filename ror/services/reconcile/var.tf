@@ -30,4 +30,4 @@ variable "ror-reconcile_tags" {
 }
 
 variable "public_key" {}
-variable "bugsnag_key" {}
+# variable "bugsnag_key" {}
