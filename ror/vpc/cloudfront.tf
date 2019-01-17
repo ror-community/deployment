@@ -72,7 +72,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = "${data.aws_acm_certificate.cloudfront.arn}"
+    acm_certificate_arn      = "${data.aws_acm_certificate.ror.arn}"
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
@@ -85,7 +85,7 @@ resource "aws_cloudfront_distribution" "site" {
 resource "aws_cloudfront_origin_access_identity" "ror_org" {}
 
 resource "aws_route53_record" "apex" {
-  zone_id = "${data.aws_route53_zone.public.zone_id}"
+  zone_id = "${aws_route53_zone.public.zone_id}"
   name = "ror.org"
   type = "A"
 

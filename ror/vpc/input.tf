@@ -50,7 +50,7 @@ data "aws_s3_bucket" "ror-org-s3" {
   bucket = "ror.org"
 }
 
-data "aws_s3_bucket" "search.ror.org" {
+data "aws_s3_bucket" "search" {
   bucket = "search.ror.org"
 }
 
