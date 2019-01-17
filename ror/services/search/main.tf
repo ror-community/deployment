@@ -2,9 +2,39 @@ resource "aws_s3_bucket" "search" {
     bucket = "search.ror.org"
     acl = "public-read"
     policy = "${data.template_file.search.rendered}"
+
     website {
         index_document = "index.html"
+
+    //     routing_rules = <<EOF
+    // [{
+    //     "Condition": {
+    //         "KeyPrefixEquals": "about/"
+    //     },
+    //     "Redirect": {
+    //         "ReplaceKeyPrefixWith": "documents/"
+    //     }
+    // },
+    // {
+    //     "Condition": {
+    //         "KeyPrefixEquals": "blog/"
+    //     },
+    //     "Redirect": {
+    //         "ReplaceKeyPrefixWith": "documents/"
+    //     }
+    // },
+    // {
+    //     "Condition": {
+    //         "KeyPrefixEquals": "scope/"
+    //     },
+    //     "Redirect": {
+    //         "ReplaceKeyPrefixWith": "documents/"
+    //     }
+    // }]
+    // EOF
+    //   }
     }
+
     tags {
         Name = "search"
     }
@@ -18,7 +48,7 @@ resource "aws_cloudfront_origin_access_identity" "search_ror_org" {}
 resource "aws_cloudfront_distribution" "search" {
   origin {
     domain_name = "${aws_s3_bucket.search.bucket_domain_name}"
-    origin_id   = "search.ror.org"
+    origin_id   = "ror.org"
 
     s3_origin_config {
       origin_access_identity = "${aws_cloudfront_origin_access_identity.search_ror_org.cloudfront_access_identity_path}"
@@ -35,7 +65,7 @@ resource "aws_cloudfront_distribution" "search" {
     prefix          = "search/"
   }
 
-  aliases = ["search.ror.org"]
+  aliases = ["ror.org", "search.ror.org"]
 
   custom_error_response {
     error_code            = "404"
@@ -89,10 +119,22 @@ resource "aws_route53_record" "search" {
   records = ["${aws_cloudfront_distribution.search.domain_name}"]
 }
 
-resource "aws_route53_record" "split-doi" {
+resource "aws_route53_record" "split-search" {
   zone_id = "${data.aws_route53_zone.internal.zone_id}"
   name = "search.ror.org"
   type = "CNAME"
   ttl = "${var.ttl}"
   records = ["${aws_cloudfront_distribution.search.domain_name}"]
+}
+
+resource "aws_route53_record" "apex" {
+  zone_id = "${data.aws_route53_zone.public.zone_id}"
+  name = "ror.org"
+  type = "A"
+
+  alias {
+    name = "${aws_cloudfront_distribution.search.domain_name}"
+    zone_id = "${aws_cloudfront_distribution.search.hosted_zone_id}" 
+    evaluate_target_health = true
+  }
 }

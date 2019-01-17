@@ -52,52 +52,6 @@ resource "aws_ecs_task_definition" "api" {
   container_definitions =  "${data.template_file.api_task.rendered}"
 }
 
-resource "aws_lb_listener_rule" "redirect_ror_id" {
-  listener_arn = "${data.aws_lb_listener.default.arn}"
-
-  action {
-    type = "redirect"
-
-    redirect {
-      host        = "${data.aws_s3_bucket.search.website_endpoint}"
-      port        = "80"
-      protocol    = "HTTP"
-      path        = "/organizations/#{path}"
-      status_code = "HTTP_302"
-    }
-  }
-
-  condition {
-    field  = "path-pattern"
-    values = ["/0*"]
-  }
-
-  condition {
-    field  = "host-header"
-    values = ["ror.org"]
-  }
-}
-
-resource "aws_lb_listener_rule" "redirect_ror_site" {
-  listener_arn = "${data.aws_lb_listener.default.arn}"
-
-  action {
-    type = "redirect"
-
-    redirect {
-      host        = "${data.aws_s3_bucket.ror-org-s3.website_endpoint}"
-      port        = "80"
-      protocol    = "HTTP"
-      status_code = "HTTP_302"
-    }
-  }
-
-  condition {
-    field  = "host-header"
-    values = ["ror.org"]
-  }
-}
-
 resource "aws_route53_record" "api" {
     zone_id = "${data.aws_route53_zone.public.zone_id}"
     name = "api.ror.org"
@@ -112,18 +66,6 @@ resource "aws_route53_record" "split-api" {
   type = "CNAME"
   ttl = "${var.ttl}"
   records = ["${data.aws_lb.default.dns_name}"]
-}
-
-resource "aws_route53_record" "apex" {
-  zone_id = "${data.aws_route53_zone.public.zone_id}"
-  name = "ror.org"
-  type = "A"
-
-  alias {
-    name = "${data.aws_lb.default.dns_name}"
-    zone_id = "${data.aws_lb.default.zone_id}"
-    evaluate_target_health = true
-  }
 }
 
 # Service Discovery Namepace

@@ -52,7 +52,3 @@ data "aws_route53_zone" "internal" {
   name         = "ror.org"
   private_zone = true
 }
-
-data "aws_s3_bucket" "logs" {
-  bucket = "logs.ror.org"
-}
