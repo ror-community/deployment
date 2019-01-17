@@ -46,6 +46,12 @@ data "aws_acm_certificate" "ror" {
   most_recent = true
 }
 
+data "aws_acm_certificate" "cloudfront" {
+  provider = "aws.use1"
+  domain = "*.ror.org"
+  statuses = ["ISSUED"]
+}
+
 data "aws_s3_bucket" "logs" {
   bucket = "logs.ror.org"
 }
