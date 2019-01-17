@@ -31,7 +31,7 @@ resource "aws_lambda_function" "redirect" {
   filename = "redirect-runner.js.zip"
   function_name = "redirect"
   role = "${data.aws_iam_role.iam_for_lambda.arn}"
-  handler = "redirectrunner.handler"
+  handler = "redirect-runner.handler"
   runtime = "nodejs8.10"
   source_code_hash = "${base64sha256(file("redirect-runner.js.zip"))}"
   publish = true
