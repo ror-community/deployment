@@ -49,7 +49,7 @@ resource "aws_lb_listener" "alb" {
 }
 
 resource "aws_lb_listener_rule" "redirect_www" {
-  listener_arn = "${data.aws_lb_listener.default.arn}"
+  listener_arn = "${aws_lb_listener.alb.arn}"
 
   action {
     type = "redirect"
@@ -73,5 +73,5 @@ resource "aws_route53_record" "www" {
     name = "www.ror.org"
     type = "CNAME"
     ttl = "${var.ttl}"
-    records = ["${aws_lb.default.dns_name}"]
+    records = ["${aws_lb.alb.dns_name}"]
 }
