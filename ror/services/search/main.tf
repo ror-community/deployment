@@ -6,33 +6,39 @@ resource "aws_s3_bucket" "search" {
     website {
         index_document = "index.html"
 
-    //     routing_rules = <<EOF
-    // [{
-    //     "Condition": {
-    //         "KeyPrefixEquals": "about/"
-    //     },
-    //     "Redirect": {
-    //         "ReplaceKeyPrefixWith": "documents/"
-    //     }
-    // },
-    // {
-    //     "Condition": {
-    //         "KeyPrefixEquals": "blog/"
-    //     },
-    //     "Redirect": {
-    //         "ReplaceKeyPrefixWith": "documents/"
-    //     }
-    // },
-    // {
-    //     "Condition": {
-    //         "KeyPrefixEquals": "scope/"
-    //     },
-    //     "Redirect": {
-    //         "ReplaceKeyPrefixWith": "documents/"
-    //     }
-    // }]
-    // EOF
-    //   }
+        routing_rules = <<EOF
+    [{
+        "Condition": {
+            "KeyPrefixEquals": "about/"
+        },
+        "Redirect": {
+            "Hostname": "www.ror.org",
+            "HttpRedirectCode": "302",
+            "Protocol": "https"
+        }
+    },
+    {
+        "Condition": {
+            "KeyPrefixEquals": "blog/"
+        },
+        "Redirect": {
+            "Hostname": "www.ror.org",
+            "HttpRedirectCode": "302",
+            "Protocol": "https"
+        }
+    },
+    {
+        "Condition": {
+            "KeyPrefixEquals": "scope/"
+        },
+        "Redirect": {
+            "Hostname": "www.ror.org",
+            "HttpRedirectCode": "302",
+            "Protocol": "https"
+        }
+    }]
+    EOF
+      }
     }
 
     tags {
