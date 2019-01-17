@@ -7,14 +7,14 @@ resource "aws_cloudfront_distribution" "site" {
       origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
     }
   }
-  origin {
-    domain_name = "${data.aws_s3_bucket.search.bucket_domain_name}"
-    origin_id   = "${data.aws_s3_bucket.search.bucket_domain_name}"
+  // origin {
+  //   domain_name = "${data.aws_s3_bucket.search.bucket_domain_name}"
+  //   origin_id   = "${data.aws_s3_bucket.search.bucket_domain_name}"
 
-    s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
-    }
-  }
+  //   s3_origin_config {
+  //     origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
+  //   }
+  // }
 
   tags {
     site        = "ror"
