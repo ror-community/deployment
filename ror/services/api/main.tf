@@ -35,6 +35,10 @@ resource "aws_lb_target_group" "api" {
   health_check {
     path = "/heartbeat"
   }
+
+  depends_on = [
+    "data.aws_lb_listener.default"
+  ]
 }
 
 resource "aws_cloudwatch_log_group" "api" {
