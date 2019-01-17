@@ -93,6 +93,10 @@ resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
+
+  depends_on = [
+    "data.aws_lambda_function.index-page"
+  ]
 }
 
 resource "aws_route53_record" "www" {
