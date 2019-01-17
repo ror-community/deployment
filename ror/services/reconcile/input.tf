@@ -23,6 +23,7 @@ data "aws_iam_role" "ecs_tasks_execution_role" {
 }
 
 data "aws_lb" "default" {
+  arn  = "${var.lb_arn}"
   name = "alb"
 }
 

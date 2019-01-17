@@ -17,14 +17,6 @@ variable "private_subnet_ids" {
 
 variable "private_security_group_id" {}
 
-# variable "elastic_search" {
-#   default = "http://elasticsearch.ror.org:80"
-# }
-
-# variable "es_name" {
-#   default = "es"
-# }
-
 variable "ror-reconcile_tags" {
   type = "map"
 }
@@ -33,3 +25,5 @@ variable "public_key" {}
 # variable "bugsnag_key" {}
 
 variable "aws_service_discovery_private_dns_namespace_id" {}
+
+variable "lb_arn" {}
