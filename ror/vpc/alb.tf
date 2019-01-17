@@ -47,3 +47,31 @@ resource "aws_lb_listener" "alb" {
     type             = "forward"
   }
 }
+
+resource "aws_lb_listener_rule" "redirect_www" {
+  listener_arn = "${data.aws_lb_listener.default.arn}"
+
+  action {
+    type = "redirect"
+
+    redirect {
+      host        = "ror.org"
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_302"
+    }
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["www.ror.org"]
+  }
+}
+
+resource "aws_route53_record" "www" {
+    zone_id = "${data.aws_route53_zone.public.zone_id}"
+    name = "www.ror.org"
+    type = "CNAME"
+    ttl = "${var.ttl}"
+    records = ["${data.aws_lb.default.dns_name}"]
+}

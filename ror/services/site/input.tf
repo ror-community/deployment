@@ -5,15 +5,6 @@ provider "aws" {
   version    = "~> 1.6"
 }
 
-// cloudfront is not global, but only in us-east-1
-provider "aws" {
-  # us-east-1 region
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
-  region = "us-east-1"
-  alias = "use1"
-}
-
 data "template_file" "site" {
   template = "${file("s3_cloudfront.json")}"
 
@@ -38,12 +29,6 @@ data "template_file" "site-staging" {
   }
 }
 
-data "aws_acm_certificate" "cloudfront" {
-  provider = "aws.use1"
-  domain = "*.ror.org"
-  statuses = ["ISSUED"]
-}
-
 data "aws_route53_zone" "public" {
   name         = "ror.org"
 }
@@ -51,16 +36,4 @@ data "aws_route53_zone" "public" {
 data "aws_route53_zone" "internal" {
   name         = "ror.org"
   private_zone = true
-}
-
-data "aws_s3_bucket" "logs" {
-  bucket = "logs.ror.org"
-}
-
-data "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
-}
-
-data "aws_lambda_function" "index-page" {
-  function_name = "index-page"
 }
