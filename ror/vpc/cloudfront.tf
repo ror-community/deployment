@@ -63,6 +63,37 @@ resource "aws_cloudfront_distribution" "site" {
     target_origin_id = "search.ror.org"
 
     forwarded_values {
+      query_string = true
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    # This says to redirect http to https
+    viewer_protocol_policy = "redirect-to-https"
+    compress               = "true"
+    min_ttl                = 0
+
+    # default cache time in seconds.  This is 1 day, meaning CloudFront will only
+    # look at your S3 bucket for changes once per day.
+    default_ttl            = 86400
+    max_ttl                = 2592000
+
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = "${aws_lambda_function.index-page.qualified_arn}"
+      include_body = false
+    }
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = "/0*"
+    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "search.ror.org"
+
+    forwarded_values {
       query_string = false
 
       cookies {
