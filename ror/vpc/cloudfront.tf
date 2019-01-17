@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "site" {
     origin_id   = "search.ror.org"
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.search_ror_org.cloudfront_access_identity_path}"
     }
   }
 
@@ -81,6 +81,7 @@ resource "aws_cloudfront_distribution" "site" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "ror_org" {}
+resource "aws_cloudfront_origin_access_identity" "search_ror_org" {}
 
 resource "aws_route53_record" "apex" {
   zone_id = "${aws_route53_zone.public.zone_id}"
