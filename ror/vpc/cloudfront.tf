@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   aliases             = ["ror.org", "search.ror.org"]
-  default_root_object = "index.html"
+  # default_root_object = "index.html"
   enabled             = "true"
 
   # You can override this per object, but for our purposes, this is fine for everything
@@ -97,6 +97,31 @@ resource "aws_cloudfront_distribution" "site" {
 
     forwarded_values {
       query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    # This says to redirect http to https
+    viewer_protocol_policy = "redirect-to-https"
+    compress               = "true"
+    min_ttl                = 0
+
+    # default cache time in seconds.  This is 1 day, meaning CloudFront will only
+    # look at your S3 bucket for changes once per day.
+    default_ttl            = 86400
+    max_ttl                = 2592000
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = "index.html"
+    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "search.ror.org"
+
+    forwarded_values {
+      query_string = true
 
       cookies {
         forward = "none"
