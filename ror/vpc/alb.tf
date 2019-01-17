@@ -73,5 +73,5 @@ resource "aws_route53_record" "www" {
     name = "www.ror.org"
     type = "CNAME"
     ttl = "${var.ttl}"
-    records = ["${aws_lb.alb.dns_name}"]
+    records = ["${data.aws_lb.alb.dns_name}"]
 }
