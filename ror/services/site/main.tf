@@ -63,10 +63,16 @@ resource "aws_cloudfront_distribution" "ror-org-cf_distribution" {
     compress               = "true"
     min_ttl                = 0
 
-    # default cache time in seconds.  This is 1 day, meaning CloudFront will only
+    # default cache time in seconds.  This is 1 hour, meaning CloudFront will only
     # look at your S3 bucket for changes once per hour.
     default_ttl            = 3600
     max_ttl                = 86400
+
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = "${aws_lambda_function.index-page.qualified_arn}"
+      include_body = false
+    }
   }
 
   logging_config {
