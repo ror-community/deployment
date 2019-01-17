@@ -5,6 +5,14 @@ provider "aws" {
   version    = "~> 1.6"
 }
 
+provider "aws" {
+  # us-east-1 region
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
+  region = "us-east-1"
+  alias = "use1"
+}
+
 data "template_file" "site" {
   template = "${file("s3_cloudfront.json")}"
 
