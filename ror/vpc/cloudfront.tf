@@ -26,7 +26,7 @@ resource "aws_cloudfront_distribution" "site" {
     error_code            = "404"
     error_caching_min_ttl = "5"
     response_code         = "200"
-    response_page_path    = "index.html"
+    response_page_path    = "/index.html"
   }
 
   aliases             = ["ror.org", "search.ror.org"]
