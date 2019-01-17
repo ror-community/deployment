@@ -21,7 +21,7 @@ resource "aws_cloudfront_distribution" "site" {
     environment = "production"
   }
 
-  aliases             = ["ror.org"]
+  aliases             = ["ror.org", "search.ror.org"]
   default_root_object = "index.html"
   enabled             = "true"
 
