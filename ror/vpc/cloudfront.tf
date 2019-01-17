@@ -26,7 +26,7 @@ resource "aws_cloudfront_distribution" "site" {
   enabled             = "true"
 
   # You can override this per object, but for our purposes, this is fine for everything
-  ordered_cache_behavior {
+  default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "ror.org"
@@ -57,6 +57,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   ordered_cache_behavior {
+    path_pattern     = "/search*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "search.ror.org"
