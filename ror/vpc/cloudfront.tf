@@ -136,6 +136,7 @@ resource "aws_cloudfront_distribution" "site" {
   restrictions {
     geo_restriction {
       restriction_type = "none"
+    }
   }
 
   viewer_certificate {
