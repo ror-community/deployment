@@ -3,9 +3,9 @@ resource "aws_cloudfront_distribution" "site" {
     domain_name = "ror.org.${data.aws_s3_bucket.site.website_domain}"
     origin_id = "ror.org"
 
-    s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
-    }
+    // s3_origin_config {
+    //   origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
+    // }
   }
   origin {
     domain_name = "${data.aws_s3_bucket.search.bucket_domain_name}"
