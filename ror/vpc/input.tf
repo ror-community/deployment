@@ -56,7 +56,7 @@ data "aws_s3_bucket" "logs" {
   bucket = "logs.ror.org"
 }
 
-data "aws_s3_bucket" "ror-org-s3" {
+data "aws_s3_bucket" "site" {
   bucket = "ror.org"
 }
 
