@@ -1,11 +1,14 @@
 resource "aws_cloudfront_distribution" "site" {
   origin {
-    domain_name = "ror.org.${data.aws_s3_bucket.site.website_domain}"
+    domain_name = "${data.aws_s3_bucket.site.website_endpoint}"
     origin_id = "ror.org"
 
-    // s3_origin_config {
-    //   origin_access_identity = "${aws_cloudfront_origin_access_identity.ror_org.cloudfront_access_identity_path}"
-    // }
+    custom_origin_config {
+      origin_protocol_policy = "http-only"
+      http_port = "80"
+      https_port = "443"
+      origin_ssl_protocols = ["TLSv1.2"]
+    }
   }
   origin {
     domain_name = "${data.aws_s3_bucket.search.bucket_domain_name}"
@@ -33,11 +36,10 @@ resource "aws_cloudfront_distribution" "site" {
   default_root_object = "index.html"
   enabled             = "true"
 
-  # You can override this per object, but for our purposes, this is fine for everything
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "search.ror.org"
+    target_origin_id = "ror.org"
 
     forwarded_values {
       query_string = false
@@ -171,7 +173,6 @@ resource "aws_cloudfront_distribution" "site" {
   }
 }
 
-resource "aws_cloudfront_origin_access_identity" "ror_org" {}
 resource "aws_cloudfront_origin_access_identity" "search_ror_org" {}
 
 resource "aws_route53_record" "apex" {
