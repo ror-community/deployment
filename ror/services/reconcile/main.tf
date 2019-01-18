@@ -35,10 +35,20 @@ resource "aws_lb_target_group" "reconcile" {
   health_check {
     path = "/heartbeat"
   }
+}
 
-  depends_on = [
-    "data.aws_lb_listener.default",
-  ]
+resource "aws_lb_listener_rule" "reconcile" {
+  listener_arn = "${data.aws_lb_listener.default.arn}"
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.reconcile.arn}"
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["${aws_route53_record.reconcile.name}"]
+  }
 }
 
 resource "aws_cloudwatch_log_group" "reconcile" {
