@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "site" {
   origin {
-    domain_name = "${data.aws_s3_bucket.ror-org-s3.website_domain}"
+    domain_name = "${data.aws_s3_bucket.ror-org-s3.website_endpoint}"
     origin_id = "ror.org"
 
     s3_origin_config {
