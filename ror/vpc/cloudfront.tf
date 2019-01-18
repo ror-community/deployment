@@ -37,7 +37,7 @@ resource "aws_cloudfront_distribution" "site" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "ror.org"
+    target_origin_id = "search.ror.org"
 
     forwarded_values {
       query_string = false
