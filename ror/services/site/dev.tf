@@ -12,27 +12,3 @@ resource "aws_s3_bucket" "dev-ror-org-s3" {
     environment = "development"
   }
 }
-
-resource "aws_route53_record" "site-dev" {
-  zone_id = "${data.aws_route53_zone.public.zone_id}"
-  name = "dev.ror.org"
-  type = "A"
-
-  alias {
-    name = "${aws_s3_bucket.dev-ror-org-s3.website_domain}"
-    zone_id = "${aws_s3_bucket.dev-ror-org-s3.hosted_zone_id}"
-    evaluate_target_health = true
-  }
-}
-
-resource "aws_route53_record" "split-site-dev" {
-  zone_id = "${data.aws_route53_zone.internal.zone_id}"
-  name = "dev.ror.org"
-  type = "A"
-
-  alias {
-    name = "${aws_s3_bucket.dev-ror-org-s3.website_domain}"
-    zone_id = "${aws_s3_bucket.dev-ror-org-s3.hosted_zone_id}"
-    evaluate_target_health = true
-  }
-}
