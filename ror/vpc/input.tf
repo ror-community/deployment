@@ -60,6 +60,14 @@ data "aws_s3_bucket" "site" {
   bucket = "ror.org"
 }
 
+data "aws_s3_bucket" "site-dev" {
+  bucket = "dev.ror.org"
+}
+
+data "aws_s3_bucket" "site-staging" {
+  bucket = "staging.ror.org"
+}
+
 data "aws_s3_bucket" "search" {
   bucket = "search.ror.org"
 }
