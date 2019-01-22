@@ -1,4 +1,4 @@
 ror-reconcile_tags = {
-  sha = "781f32a"
+  sha = "bd97775"
   version = ""
 }
