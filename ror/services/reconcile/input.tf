@@ -44,3 +44,16 @@ data "template_file" "reconcile_task" {
     version     = "${var.ror-reconcile_tags["sha"]}"
   }
 }
+
+data "template_file" "reconcile-dev_task" {
+  template = "${file("reconcile-dev.json")}"
+
+  vars {
+    access_key  = "${var.access_key}"
+    secret_key  = "${var.secret_key}"
+    region      = "${var.region}"
+    public_key  = "${var.public_key}"
+    # bugsnag_key = "${var.bugsnag_key}"
+    version     = "${var.ror-reconcile-dev_tags["sha"]}"
+  }
+}
