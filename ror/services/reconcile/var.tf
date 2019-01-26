@@ -21,6 +21,10 @@ variable "ror-reconcile_tags" {
   type = "map"
 }
 
+variable "ror-reconcile-dev_tags" {
+  type = "map"
+}
+
 variable "public_key" {}
 # variable "bugsnag_key" {}
 
