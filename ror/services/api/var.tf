@@ -24,5 +24,9 @@ variable "ror-api_tags" {
   type = "map"
 }
 
+variable "ror-api-dev_tags" {
+  type = "map"
+}
+
 variable "public_key" {}
 variable "bugsnag_key" {}

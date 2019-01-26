@@ -45,6 +45,20 @@ data "template_file" "api_task" {
   }
 }
 
+data "template_file" "api-dev_task" {
+  template = "${file("api-dev.json")}"
+
+  vars {
+    elastic_search     = "${var.elastic_search}"
+    access_key         = "${var.access_key}"
+    secret_key         = "${var.secret_key}"
+    region             = "${var.region}"
+    public_key         = "${var.public_key}"
+    bugsnag_key         = "${var.bugsnag_key}"
+    version            = "${var.ror-api-dev_tags["sha"]}"
+  }
+}
+
 data "aws_s3_bucket" "search" {
   bucket = "search.ror.org"
 }

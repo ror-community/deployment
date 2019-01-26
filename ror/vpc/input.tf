@@ -41,14 +41,14 @@ data "aws_lb_target_group" "api" {
 }
 
 data "aws_acm_certificate" "ror" {
-  domain = "*.ror.org"
+  domain = "ror.org"
   statuses = ["ISSUED"]
   most_recent = true
 }
 
 data "aws_acm_certificate" "cloudfront" {
   provider = "aws.use1"
-  domain = "*.ror.org"
+  domain = "ror.org"
   statuses = ["ISSUED"]
 }
 

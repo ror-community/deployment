@@ -1,7 +1,7 @@
 [
   {
-    "name": "api",
-    "image": "rorcommunity/ror-api:latest",
+    "name": "api-dev",
+    "image": "rorcommunity/ror-api:dev",
     "cpu": 512,
     "memory": 1024,
     "networkMode": "awsvpc",
@@ -15,7 +15,7 @@
     "logConfiguration": { 
       "logDriver": "awslogs",
       "options": { 
-         "awslogs-group" : "/ecs/api",
+         "awslogs-group" : "/ecs/api-dev",
          "awslogs-region": "eu-west-1",
          "awslogs-stream-prefix": "ecs"
       }
@@ -27,7 +27,7 @@
       },
       {
         "name" : "RELEASE_STAGE",
-        "value" : "production"
+        "value" : "dev"
       },
       {
         "name" : "ELASTIC_SEARCH",
