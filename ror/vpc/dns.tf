@@ -62,3 +62,11 @@ resource "aws_route53_record" "mx-ror" {
         "10 aspmx3.googlemail.com"
     ]
 }
+
+resource "aws_route53_record" "status" {
+    zone_id = "${aws_route53_zone.public.zone_id}"
+    name = "status.ror.org"
+    type = "CNAME"
+    ttl = "3600"
+    records = ["${var.status_dns_name}"]
+}

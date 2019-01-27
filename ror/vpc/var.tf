@@ -24,3 +24,4 @@ variable "cluster_name" {
   default = "ror"
 }
 
+variable "status_dns_name" {}
