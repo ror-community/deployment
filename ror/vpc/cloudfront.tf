@@ -192,7 +192,7 @@ resource "aws_cloudfront_distribution" "api" {
     origin_id = "${data.aws_lb.alb.id}"
 
     custom_origin_config {
-      origin_protocol_policy = "https-only"
+      origin_protocol_policy = "http-only"
       http_port = "80"
       https_port = "443"
       origin_ssl_protocols = ["TLSv1.2", "TLSv1.1", "TLSv1"]
