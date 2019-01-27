@@ -72,6 +72,10 @@ data "aws_s3_bucket" "search" {
   bucket = "search.ror.org"
 }
 
+data "aws_s3_bucket" "search-dev" {
+  bucket = "search.dev.ror.org"
+}
+
 data "aws_iam_role" "iam_for_lambda" {
   name = "iam_for_lambda"
 }
