@@ -25,13 +25,8 @@ resource "aws_lb_listener" "alb-http" {
   protocol          = "HTTP"
 
   default_action {
-    type = "redirect"
-
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
+    target_group_arn = "${data.aws_lb_target_group.api.id}"
+    type             = "forward"
   }
 }
 
