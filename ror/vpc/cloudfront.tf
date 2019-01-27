@@ -188,7 +188,7 @@ resource "aws_route53_record" "apex" {
 
 resource "aws_cloudfront_distribution" "api" {
   origin {
-    domain_name = "${data.aws_lb.alb.domain_name}"
+    domain_name = "${data.aws_lb.alb.dns_name}"
     origin_id = "${data.aws_lb.alb.id}"
   }
 
