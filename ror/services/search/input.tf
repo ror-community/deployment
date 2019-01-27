@@ -20,3 +20,12 @@ data "template_file" "search" {
     bucket_name = "search.ror.org"
   }
 }
+
+data "template_file" "search-dev" {
+  template = "${file("s3_cloudfront.json")}"
+
+  vars {
+    bucket_name = "search.dev.ror.org"
+  }
+}
+
