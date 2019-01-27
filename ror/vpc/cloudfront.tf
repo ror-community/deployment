@@ -203,7 +203,7 @@ resource "aws_cloudfront_distribution" "api" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${aws_lb.alb.id}"
+    target_origin_id = "${data.aws_lb.alb.id}"
 
     forwarded_values {
       query_string = true
