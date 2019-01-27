@@ -190,6 +190,13 @@ resource "aws_cloudfront_distribution" "api" {
   origin {
     domain_name = "${data.aws_lb.alb.dns_name}"
     origin_id = "${data.aws_lb.alb.id}"
+
+    custom_origin_config {
+      origin_protocol_policy = "http-only"
+      http_port = "80"
+      https_port = "443"
+      origin_ssl_protocols = ["TLSv1.2"]
+    }
   }
 
   tags {
