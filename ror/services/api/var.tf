@@ -30,3 +30,5 @@ variable "ror-api-dev_tags" {
 
 variable "public_key" {}
 variable "bugsnag_key" {}
+
+variable "cloudfront_dns_name" {}

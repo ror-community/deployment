@@ -61,7 +61,7 @@ resource "aws_route53_record" "api" {
     name = "api.ror.org"
     type = "CNAME"
     ttl = "${var.ttl}"
-    records = ["${data.aws_lb.default.dns_name}"]
+    records = ["${var.cloudfront_dns_name}"]
 }
 
 resource "aws_route53_record" "split-api" {
