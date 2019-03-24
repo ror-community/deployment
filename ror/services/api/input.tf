@@ -40,7 +40,7 @@ data "template_file" "api_task" {
     secret_key         = "${var.secret_key}"
     region             = "${var.region}"
     public_key         = "${var.public_key}"
-    bugsnag_key         = "${var.bugsnag_key}"
+    sentry_dsn         = "${var.sentry_dsn}"
     version            = "${var.ror-api_tags["sha"]}"
   }
 }
@@ -54,7 +54,7 @@ data "template_file" "api-dev_task" {
     secret_key         = "${var.secret_key}"
     region             = "${var.region}"
     public_key         = "${var.public_key}"
-    bugsnag_key         = "${var.bugsnag_key}"
+    sentry_dsn         = "${var.sentry_dsn}"
     version            = "${var.ror-api-dev_tags["sha"]}"
   }
 }
