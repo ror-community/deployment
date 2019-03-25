@@ -49,7 +49,7 @@ data "template_file" "api-dev_task" {
   template = "${file("api-dev.json")}"
 
   vars {
-    elastic_search     = "${var.elastic_search}"
+    elastic_search     = "${var.elastic_search_dev}"
     access_key         = "${var.access_key}"
     secret_key         = "${var.secret_key}"
     region             = "${var.region}"

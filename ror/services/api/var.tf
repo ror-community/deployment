@@ -17,6 +17,9 @@ variable "private_security_group_id" {}
 variable "elastic_search" {
   default = "http://elasticsearch.ror.org:80"
 }
+variable "elastic_search_dev" {
+  default = "http://elasticsearch.dev.ror.org:80"
+}
 variable "es_name" {
   default = "es"
 }
