@@ -33,7 +33,7 @@ resource "aws_lb_target_group" "api-dev" {
   target_type = "ip"
 
   health_check {
-    path = "/"
+    path = "/heartbeat"
   }
 
   depends_on = [
