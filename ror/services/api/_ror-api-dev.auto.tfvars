@@ -1,4 +1,4 @@
-ror-api-dev_tags = {
-  sha = "906c063"
+ror-api_tags = {
+  sha = "0c050c7"
   version = ""
 }
