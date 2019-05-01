@@ -46,6 +46,10 @@
         "value" : "${region}"
       },
       {
+        "name" : "SECRET_KEY",
+        "value" : "${django_secret_key}"
+      },
+      {
         "name" : "PUBLIC_KEY",
         "value" : "${public_key}"
       },

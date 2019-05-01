@@ -35,3 +35,5 @@ variable "public_key" {}
 variable "sentry_dsn" {}
 
 variable "cloudfront_dns_name" {}
+
+variable "django_secret_key" {}
