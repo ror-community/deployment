@@ -31,7 +31,7 @@
       },
       {
         "name" : "ELASTIC_HOST",
-        "value" : "${elastic_host}"
+        "value" : "${elastic_host_dev}"
       },
       {
         "name" : "AWS_ACCESS_KEY_ID",
