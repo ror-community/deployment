@@ -30,8 +30,8 @@
         "value" : "dev"
       },
       {
-        "name" : "ELASTIC_SEARCH",
-        "value" : "${elastic_search}"
+        "name" : "ELASTIC_HOST",
+        "value" : "${elastic_host}"
       },
       {
         "name" : "AWS_ACCESS_KEY_ID",
