@@ -1,6 +1,6 @@
 module "alb" {
   source                        = "terraform-aws-modules/alb/aws"
-
+  version                       = "3.5.0"
   load_balancer_name            = "alb"
   security_groups               = ["${aws_security_group.lb_sg.id}"]
   log_bucket_name               = "${aws_s3_bucket.logs.bucket}"
