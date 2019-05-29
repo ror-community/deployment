@@ -18,7 +18,7 @@ variable "elastic_search" {
   default = "http://elasticsearch.ror.org:80"
 }
 variable "elastic_host_dev" {
-  default = "http://elasticsearch.dev.ror.org"
+  default = "elasticsearch.dev.ror.org"
 }
 variable "elastic_port_dev" {
   default = "80"
