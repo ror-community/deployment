@@ -1,7 +1,7 @@
 [
   {
     "name": "api-dev",
-    "image": "rorcommunity/ror-api:python_rewrite",
+    "image": "rorcommunity/ror-api:dev",
     "cpu": 512,
     "memory": 1024,
     "networkMode": "awsvpc",
