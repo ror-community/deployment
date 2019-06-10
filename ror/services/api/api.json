@@ -31,11 +31,11 @@
       },
       {
         "name" : "ELASTIC_HOST",
-        "value" : "${elastic_host_dev}"
+        "value" : "${elastic_host}"
       },
       {
         "name" : "ELASTIC_PORT",
-        "value" : "${elastic_port_dev}"
+        "value" : "${elastic_port}"
       },
       {
         "name" : "AWS_ACCESS_KEY_ID",
