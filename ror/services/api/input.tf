@@ -35,7 +35,8 @@ data "template_file" "api_task" {
   template = "${file("api.json")}"
 
   vars {
-    elastic_search     = "${var.elastic_search}"
+    elastic_host       = "${var.elastic_host}"
+    elastic_port       = "${var.elastic_port}"
     access_key         = "${var.access_key}"
     secret_key         = "${var.secret_key}"
     region             = "${var.region}"
