@@ -22,7 +22,7 @@
     },
     "environment" : [
       {
-        "name" : "RACK_ENV",
+        "name" : "PASSENGER_APP_ENV",
         "value" : "production"
       },
       {
