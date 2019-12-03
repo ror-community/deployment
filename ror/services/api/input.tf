@@ -26,6 +26,10 @@ data "aws_lb" "default" {
   name = "alb"
 }
 
+data "aws_lb" "alb-http" {
+  name = "alb-http"
+}
+
 data "aws_lb_listener" "default" {
   load_balancer_arn = "${data.aws_lb.default.arn}"
   port = 443
