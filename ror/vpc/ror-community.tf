@@ -72,12 +72,16 @@ resource "aws_lb_listener_rule" "redirect_www_community" {
   }
 }
 
-resource "aws_route53_record" "community" {
-    zone_id = "${aws_route53_zone.public-community.zone_id}"
-    name = "ror.community"
-    type = "CNAME"
-    ttl = "${var.ttl}"
-    records = ["${data.aws_lb.alb.dns_name}"]
+resource "aws_route53_record" "apex-community" {
+  zone_id = "${aws_route53_zone.public-community.zone_id}"
+  name = "ror.community"
+  type = "A"
+
+  alias {
+    name = "${data.aws_lb.alb.dns_name}"
+    zone_id = "${data.aws_lb.alb.zone_id}"
+    evaluate_target_health = true
+  }
 }
 
 resource "aws_route53_record" "www-community" {
