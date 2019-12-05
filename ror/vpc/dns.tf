@@ -19,6 +19,27 @@ resource "aws_route53_record" "public-ns" {
     ]
 }
 
+resource "aws_route53_zone" "public-community" {
+    name = "ror.community"
+
+    tags {
+        Environment = "public"
+    }
+}
+
+resource "aws_route53_record" "public-community-ns" {
+    zone_id = "${aws_route53_zone.public-community.zone_id}"
+    name = "ror.community"
+    type = "NS"
+    ttl = "300"
+    records = [
+        "${aws_route53_zone.public-community.name_servers.0}",
+        "${aws_route53_zone.public-community.name_servers.1}",
+        "${aws_route53_zone.public-community.name_servers.2}",
+        "${aws_route53_zone.public-community.name_servers.3}"
+    ]
+}
+
 resource "aws_route53_zone" "internal" {
     name = "ror.org"
     
