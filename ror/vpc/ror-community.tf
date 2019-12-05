@@ -1,0 +1,89 @@
+resource "aws_route53_record" "public-ns" {
+    zone_id = "${aws_route53_zone.public.zone_id}"
+    name = "ror.org"
+    type = "NS"
+    ttl = "300"
+    records = [
+        "${aws_route53_zone.public.name_servers.0}",
+        "${aws_route53_zone.public.name_servers.1}",
+        "${aws_route53_zone.public.name_servers.2}",
+        "${aws_route53_zone.public.name_servers.3}"
+    ]
+}
+
+resource "aws_route53_zone" "public-community" {
+    name = "ror.community"
+
+    tags {
+        Environment = "public"
+    }
+}
+
+resource "aws_route53_record" "public-community-ns" {
+    zone_id = "${aws_route53_zone.public-community.zone_id}"
+    name = "ror.community"
+    type = "NS"
+    ttl = "300"
+    records = [
+        "${aws_route53_zone.public-community.name_servers.0}",
+        "${aws_route53_zone.public-community.name_servers.1}",
+        "${aws_route53_zone.public-community.name_servers.2}",
+        "${aws_route53_zone.public-community.name_servers.3}"
+    ]
+}
+
+resource "aws_lb_listener_rule" "redirect_community" {
+  listener_arn = "${aws_lb_listener.alb.arn}"
+
+  action {
+    type = "redirect"
+
+    redirect {
+      host        = "ror.org"
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_302"
+    }
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["ror.community"]
+  }
+}
+
+resource "aws_lb_listener_rule" "redirect_www_community" {
+  listener_arn = "${aws_lb_listener.alb.arn}"
+
+  action {
+    type = "redirect"
+
+    redirect {
+      host        = "www.ror.org"
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_302"
+    }
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["www.ror.community"]
+  }
+}
+
+resource "aws_route53_record" "community" {
+    zone_id = "${aws_route53_zone.public-community.zone_id}"
+    name = "ror.community"
+    type = "CNAME"
+    ttl = "${var.ttl}"
+    records = ["${data.aws_lb.alb.dns_name}"]
+}
+
+resource "aws_route53_record" "www-community" {
+    zone_id = "${aws_route53_zone.public-community.zone_id}"
+    name = "www.ror.community"
+    type = "CNAME"
+    ttl = "${var.ttl}"
+    records = ["${data.aws_lb.alb.dns_name}"]
+}
