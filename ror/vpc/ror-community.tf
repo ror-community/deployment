@@ -59,7 +59,7 @@ resource "aws_lb_listener_rule" "redirect_www_community" {
     type = "redirect"
 
     redirect {
-      host        = "www.ror.org"
+      host        = "ror.org"
       port        = "443"
       protocol    = "HTTPS"
       status_code = "HTTP_302"
@@ -117,26 +117,6 @@ resource "aws_lb_listener" "alb-community" {
       protocol    = "HTTPS"
       status_code = "HTTP_301"
     }
-  }
-}
-
-resource "aws_lb_listener_rule" "redirect_www" {
-  listener_arn = "${aws_lb_listener.alb-community.arn}"
-
-  action {
-    type = "redirect"
-
-    redirect {
-      host        = "ror.org"
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
-  }
-
-  condition {
-    field  = "host-header"
-    values = ["www.ror.community"]
   }
 }
 
