@@ -120,22 +120,22 @@ resource "aws_lb_listener" "alb-community" {
   }
 }
 
-resource "aws_route53_record" "apex-community" {
-  zone_id = "${aws_route53_zone.public-community.zone_id}"
-  name = "ror.community"
-  type = "A"
+// resource "aws_route53_record" "apex-community" {
+//   zone_id = "${aws_route53_zone.public-community.zone_id}"
+//   name = "ror.community"
+//   type = "A"
 
-  alias {
-    name = "${data.aws_lb.alb-community.dns_name}"
-    zone_id = "${data.aws_lb.alb-community.zone_id}"
-    evaluate_target_health = true
-  }
-}
+//   alias {
+//     name = "${data.aws_lb.alb-community.dns_name}"
+//     zone_id = "${data.aws_lb.alb-community.zone_id}"
+//     evaluate_target_health = true
+//   }
+// }
 
-resource "aws_route53_record" "www-community" {
-    zone_id = "${aws_route53_zone.public-community.zone_id}"
-    name = "www.ror.community"
-    type = "CNAME"
-    ttl = "${var.ttl}"
-    records = ["${data.aws_lb.alb-community.dns_name}"]
-}
+// resource "aws_route53_record" "www-community" {
+//     zone_id = "${aws_route53_zone.public-community.zone_id}"
+//     name = "www.ror.community"
+//     type = "CNAME"
+//     ttl = "${var.ttl}"
+//     records = ["${data.aws_lb.alb-community.dns_name}"]
+// }
