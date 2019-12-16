@@ -36,12 +36,22 @@ data "aws_lb" "alb" {
   name = "alb"
 }
 
+data "aws_lb" "alb-community" {
+  name = "alb-community"
+}
+
 data "aws_lb_target_group" "api" {
   name = "api"
 }
 
 data "aws_acm_certificate" "ror" {
   domain = "ror.org"
+  statuses = ["ISSUED"]
+  most_recent = true
+}
+
+data "aws_acm_certificate" "ror-community" {
+  domain = "ror.community"
   statuses = ["ISSUED"]
   most_recent = true
 }

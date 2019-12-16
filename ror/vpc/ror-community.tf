@@ -72,14 +72,82 @@ resource "aws_lb_listener_rule" "redirect_www_community" {
   }
 }
 
+module "alb-community" {
+  source                        = "terraform-aws-modules/alb/aws"
+  version                       = "3.5.0"
+  load_balancer_name            = "alb-community"
+  security_groups               = ["${aws_security_group.lb_sg.id}"]
+  log_bucket_name               = "${aws_s3_bucket.logs.bucket}"
+  log_location_prefix           = "alb-community-logs"
+  subnets                       = "${module.vpc.public_subnets}"
+  tags                          = "${map("Environment", "production")}"
+  vpc_id                        = "${module.vpc.vpc_id}"
+}
+
+resource "aws_lb_listener" "alb-community-http" {
+  load_balancer_arn = "${module.alb-community.load_balancer_id}"
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      host        = "ror.org"
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener" "alb-community" {
+  load_balancer_arn = "${module.alb-community.load_balancer_id}"
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = "${data.aws_acm_certificate.ror-community.arn}"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      host        = "ror.org"
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener_rule" "redirect_www" {
+  listener_arn = "${aws_lb_listener.alb-community.arn}"
+
+  action {
+    type = "redirect"
+
+    redirect {
+      host        = "ror.org"
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["www.ror.community"]
+  }
+}
+
 resource "aws_route53_record" "apex-community" {
   zone_id = "${aws_route53_zone.public-community.zone_id}"
   name = "ror.community"
   type = "A"
 
   alias {
-    name = "${data.aws_lb.alb.dns_name}"
-    zone_id = "${data.aws_lb.alb.zone_id}"
+    name = "${data.aws_lb.alb-community.dns_name}"
+    zone_id = "${data.aws_lb.alb-community.zone_id}"
     evaluate_target_health = true
   }
 }
@@ -89,5 +157,5 @@ resource "aws_route53_record" "www-community" {
     name = "www.ror.community"
     type = "CNAME"
     ttl = "${var.ttl}"
-    records = ["${data.aws_lb.alb.dns_name}"]
+    records = ["${data.aws_lb.alb-community.dns_name}"]
 }
