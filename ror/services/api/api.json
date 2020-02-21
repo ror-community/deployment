@@ -1,7 +1,7 @@
 [
   {
     "name": "api",
-    "image": "rorcommunity/ror-api:latest",
+    "image": "rorcommunity/ror-api:${version}",
     "cpu": 512,
     "memory": 1024,
     "networkMode": "awsvpc",
@@ -60,10 +60,6 @@
       {
         "name" : "SENTRY_DSN",
         "value" : "${sentry_dsn}"
-      },
-      {
-        "name" : "GITHUB_VERSION",
-        "value" : "${version}"
       }
     ]
   }
