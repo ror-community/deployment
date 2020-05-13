@@ -7,7 +7,7 @@ resource "aws_ecs_service" "api-dev" {
 
   network_configuration {
     security_groups = [var.private_security_group_id]
-    subnets         = [var.private_subnet_ids]
+    subnets         = var.private_subnet_ids
   }
 
   service_registries {
