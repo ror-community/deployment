@@ -22,7 +22,7 @@ resource "aws_s3_bucket" "logs" {
 }
 
 resource "aws_lb_listener" "alb-http" {
-  load_balancer_arn = module.alb.load_balancer_id
+  load_balancer_arn = module.alb.this_lb_arn
   port              = "80"
   protocol          = "HTTP"
 
