@@ -1,13 +1,13 @@
 resource "aws_s3_bucket" "search-dev" {
     bucket = "search.dev.ror.org"
     acl = "public-read"
-    policy = "${data.template_file.search-dev.rendered}"
+    policy = data.template_file.search-dev.rendered
 
     website {
         index_document = "index.html"
     }
 
-    tags {
+    tags = {
         Name = "search-dev"
     }
     versioning {
