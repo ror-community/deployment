@@ -74,11 +74,12 @@ resource "aws_lb_listener_rule" "redirect_www_community" {
 
 module "alb-community" {
   source                        = "terraform-aws-modules/alb/aws"
-  version                       = "3.5.0"
+  version                       = "~> v5.0"
   load_balancer_name            = "alb-community"
   security_groups               = [aws_security_group.lb_sg.id]
-  log_bucket_name               = aws_s3_bucket.logs.bucket
-  log_location_prefix           = "alb-community-logs"
+  access_logs = {
+    bucket                      = aws_s3_bucket.logs.bucket
+  }
   subnets                       = module.vpc.public_subnets
   tags                          = map("Environment", "production")
   vpc_id                        = module.vpc.vpc_id
