@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "site-staging" {
   origin {
-    domain_name = "${data.aws_s3_bucket.site-staging.website_endpoint}"
+    domain_name = data.aws_s3_bucket.site-staging.website_endpoint
     origin_id = "staging.ror.org"
 
     custom_origin_config {
@@ -11,15 +11,15 @@ resource "aws_cloudfront_distribution" "site-staging" {
     }
   }
   origin {
-    domain_name = "${data.aws_s3_bucket.search.bucket_domain_name}"
+    domain_name = data.aws_s3_bucket.search.bucket_domain_name
     origin_id   = "search.ror.org"
 
     // s3_origin_config {
-    //   origin_access_identity = "${aws_cloudfront_origin_access_identity.search_ror_org.cloudfront_access_identity_path}"
+    //   origin_access_identity = aws_cloudfront_origin_access_identity.search_ror_org.cloudfront_access_identity_path
     // }
   }
 
-  tags {
+  tags = {
     site        = "ror"
     environment = "staging"
   }
@@ -60,7 +60,7 @@ resource "aws_cloudfront_distribution" "site-staging" {
 
     // lambda_function_association {
     //   event_type   = "origin-request"
-    //   lambda_arn   = "${aws_lambda_function.index-page.qualified_arn}"
+    //   lambda_arn   = aws_lambda_function.index-page.qualified_arn
     //   include_body = false
     // }
   }
@@ -91,7 +91,7 @@ resource "aws_cloudfront_distribution" "site-staging" {
 
     lambda_function_association {
       event_type   = "origin-request"
-      lambda_arn   = "${aws_lambda_function.redirect.qualified_arn}"
+      lambda_arn   = aws_lambda_function.redirect.qualified_arn
       include_body = false
     }
   }
@@ -122,12 +122,12 @@ resource "aws_cloudfront_distribution" "site-staging" {
 
     lambda_function_association {
       event_type   = "origin-request"
-      lambda_arn   = "${aws_lambda_function.redirect.qualified_arn}"
+      lambda_arn   = aws_lambda_function.redirect.qualified_arn
       include_body = false
     }
   }
 
-   ordered_cache_behavior {
+  ordered_cache_behavior {
     path_pattern     = "assets/*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
@@ -154,7 +154,7 @@ resource "aws_cloudfront_distribution" "site-staging" {
 
   logging_config {
     include_cookies = false
-    bucket          = "${data.aws_s3_bucket.logs.bucket_domain_name}"
+    bucket          = data.aws_s3_bucket.logs.bucket_domain_name
 
     prefix = "cf-staging/"
   }
@@ -166,7 +166,7 @@ resource "aws_cloudfront_distribution" "site-staging" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = "${data.aws_acm_certificate.cloudfront.arn}"
+    acm_certificate_arn      = data.aws_acm_certificate.cloudfront.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
@@ -175,13 +175,13 @@ resource "aws_cloudfront_distribution" "site-staging" {
 //resource "aws_cloudfront_origin_access_identity" "search_ror_org" {}
 
 resource "aws_route53_record" "site-staging" {
-  zone_id = "${aws_route53_zone.public.zone_id}"
+  zone_id = aws_route53_zone.public.zone_id
   name = "staging.ror.org"
   type = "A"
 
   alias {
-    name = "${aws_cloudfront_distribution.site-staging.domain_name}"
-    zone_id = "${aws_cloudfront_distribution.site-staging.hosted_zone_id}" 
+    name = aws_cloudfront_distribution.site-staging.domain_name
+    zone_id = aws_cloudfront_distribution.site-staging.hosted_zone_id 
     evaluate_target_health = true
   }
 }
