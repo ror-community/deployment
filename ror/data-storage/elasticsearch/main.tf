@@ -26,8 +26,8 @@ resource "aws_elasticsearch_domain" "ror" {
   }
 
   vpc_options {
-    security_group_ids = ["${data.aws_security_group.private_security_group.id}"]
-    subnet_ids = ["${data.aws_subnet.private_subnet.id}"]
+    security_group_ids = [data.aws_security_group.private_security_group.id]
+    subnet_ids = [data.aws_subnet.private_subnet.id]
   }
 
   tags {
@@ -36,15 +36,15 @@ resource "aws_elasticsearch_domain" "ror" {
 }
 
 resource "aws_elasticsearch_domain_policy" "ror" {
-  domain_name = "${aws_elasticsearch_domain.ror.domain_name}"
+  domain_name = aws_elasticsearch_domain.ror.domain_name
 
-  access_policies = "${file("elasticsearch_policy.json")}"
+  access_policies = file("elasticsearch_policy.json")
 }
 
 resource "aws_route53_record" "elasticsearch-ror" {
-   zone_id = "${data.aws_route53_zone.internal.zone_id}"
+   zone_id = data.aws_route53_zone.internal.zone_id
    name = "elasticsearch.ror.org"
    type = "CNAME"
-   ttl = "${var.ttl}"
-   records = ["${aws_elasticsearch_domain.ror.endpoint}"]
+   ttl = var.ttl
+   records = [aws_elasticsearch_domain.ror.endpoint]
 }

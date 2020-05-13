@@ -22,8 +22,8 @@ resource "aws_elasticsearch_domain" "ror-dev" {
   }
 
   vpc_options {
-    security_group_ids = ["${data.aws_security_group.private_security_group.id}"]
-    subnet_ids = ["${data.aws_subnet.private_subnet.id}"]
+    security_group_ids = [data.aws_security_group.private_security_group.id]
+    subnet_ids = [data.aws_subnet.private_subnet.id]
   }
 
   tags {
@@ -32,9 +32,9 @@ resource "aws_elasticsearch_domain" "ror-dev" {
 }
 
 resource "aws_route53_record" "elasticsearch-ror-dev" {
-   zone_id = "${data.aws_route53_zone.internal.zone_id}"
+   zone_id = data.aws_route53_zone.internal.zone_id
    name = "elasticsearch.dev.ror.org"
    type = "CNAME"
    ttl = "${var.ttl}"
-   records = ["${aws_elasticsearch_domain.ror-dev.endpoint}"]
+   records = [aws_elasticsearch_domain.ror-dev.endpoint]
 }
