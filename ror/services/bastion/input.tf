@@ -24,7 +24,7 @@ data "aws_security_group" "private_security_group" {
 data "template_file" "bastion-user-data-cfg" {
   template = file("user_data.cfg")
 
-  vars {
+  vars = {
     hostname     = var.hostname
     fqdn         = "${var.hostname}.ror.org"
   }
