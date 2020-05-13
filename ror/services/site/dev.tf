@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "dev-ror-org-s3" {
     index_document = "index.html"
   }
 
-  tags {
+  tags = {
     site        = "ror"
     environment = "development"
   }
