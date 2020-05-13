@@ -11,7 +11,7 @@ resource "aws_elasticsearch_domain" "ror" {
     instance_count = 1
   }
 
-  advanced_options {
+  advanced_options = {
     "rest.action.multi.allow_explicit_index" = "true"
   }
 
