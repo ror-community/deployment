@@ -12,7 +12,7 @@ resource "aws_elasticsearch_domain" "ror-dev" {
   }
 
   snapshot_options {
-    "automated_snapshot_start_hour" = 23
+    automated_snapshot_start_hour = 23
   }
 
   ebs_options{
