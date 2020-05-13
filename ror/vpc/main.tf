@@ -2,12 +2,12 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
   version = "1.50.0"
 
-  name = "${var.vpc_name}"
-  cidr = "${var.vpc_cidr}"
+  name = var.vpc_name
+  cidr = var.vpc_cidr
 
-  azs             = "${var.azs}"
-  private_subnets = "${var.private_subnets}"
-  public_subnets  = "${var.public_subnets}"
+  azs             = var.azs
+  private_subnets = var.private_subnets
+  public_subnets  = var.public_subnets
 
   single_nat_gateway = true
   enable_nat_gateway   = true
@@ -22,7 +22,7 @@ module "vpc" {
 resource "aws_security_group" "lb_sg" {
   name        = "load-balancer-sg"
   description = "Allow all inbound traffic to http and https"
-  vpc_id      = "${module.vpc.vpc_id}"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     from_port    = 80
@@ -44,7 +44,7 @@ resource "aws_security_group" "lb_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags {
+  tags = {
     Name = "load-balancer-sg"
   }
 }
@@ -52,13 +52,13 @@ resource "aws_security_group" "lb_sg" {
 resource "aws_security_group" "ecs_service_sg" {
   name        = "fargate-ecs-service-sg"
   description = "Allow all inbound traffic to service port"
-  vpc_id      = "${module.vpc.vpc_id}"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = ["${var.vpc_cidr}"]
+    cidr_blocks = [var.vpc_cidr]
   }
 
   egress {
@@ -68,7 +68,7 @@ resource "aws_security_group" "ecs_service_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "fargate-ecs-service-sg"
   }
 }

@@ -1,14 +1,14 @@
 provider "aws" {
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
-  region     = "${var.region}"
-  version    = "~> 1.6"
+  access_key = var.access_key
+  secret_key = var.secret_key
+  region     = var.region
+  version    = "~> 2.7"
 }
 
 provider "aws" {
   # us-east-1 region
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
+  access_key = var.access_key
+  secret_key = var.secret_key
   region = "us-east-1"
   alias = "use1"
 }
@@ -25,9 +25,9 @@ data "aws_iam_policy_document" "ecs_tasks_execution_role" {
 }
 
 data "template_file" "logs" {
-  template = "${file("s3_write_access.json")}"
+  template = file("s3_write_access.json")
 
-  vars {
+  vars = {
     bucket_name = "logs.ror.org"
   }
 }
