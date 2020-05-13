@@ -14,7 +14,7 @@
 // }
 
 resource "aws_lambda_function" "index-page" {
-  provider = "aws.use1"
+  provider = aws.use1
   
   filename = "index-page-runner.js.zip"
   function_name = "index-page"
@@ -26,7 +26,7 @@ resource "aws_lambda_function" "index-page" {
 }
 
 resource "aws_lambda_function" "redirect" {
-  provider = "aws.use1"
+  provider = aws.use1
   
   filename = "redirect-runner.js.zip"
   function_name = "redirect"
