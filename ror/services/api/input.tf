@@ -1,8 +1,8 @@
 provider "aws" {
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
-  region     = "${var.region}"
-  version    = "~> 1.6"
+  access_key = var.access_key
+  secret_key = var.secret_key
+  region     = var.region
+  version    = "~> 2.7"
 }
 
 data "aws_route53_zone" "public" {
@@ -27,44 +27,44 @@ data "aws_lb" "default" {
 }
 
 data "aws_lb_listener" "default" {
-  load_balancer_arn = "${data.aws_lb.default.arn}"
+  load_balancer_arn = data.aws_lb.default.arn
   port = 443
 }
 
 data "aws_lb_listener" "alb-http" {
-  load_balancer_arn = "${data.aws_lb.default.arn}"
+  load_balancer_arn = data.aws_lb.default.arn
   port = 80
 }
 
 data "template_file" "api_task" {
-  template = "${file("api.json")}"
+  template = file("api.json")
 
   vars {
-    elastic_host       = "${var.elastic_host}"
-    elastic_port       = "${var.elastic_port}"
-    access_key         = "${var.access_key}"
-    secret_key         = "${var.secret_key}"
-    region             = "${var.region}"
-    public_key         = "${var.public_key}"
-    sentry_dsn         = "${var.sentry_dsn}"
-    django_secret_key  = "${var.django_secret_key}"
-    version            = "${var.ror-api_tags["version"]}"
+    elastic_host       = var.elastic_host
+    elastic_port       = var.elastic_port
+    access_key         = var.access_key
+    secret_key         = var.secret_key
+    region             = var.region
+    public_key         = var.public_key
+    sentry_dsn         = var.sentry_dsn
+    django_secret_key  = var.django_secret_key
+    version            = var.ror-api_tags["version"]
   }
 }
 
 data "template_file" "api-dev_task" {
-  template = "${file("api-dev.json")}"
+  template = file("api-dev.json")
 
   vars {
-    elastic_host_dev   = "${var.elastic_host_dev}"
-    elastic_port_dev   = "${var.elastic_port_dev}"
-    access_key         = "${var.access_key}"
-    secret_key         = "${var.secret_key}"
-    region             = "${var.region}"
-    public_key         = "${var.public_key}"
-    sentry_dsn         = "${var.sentry_dsn}"
-    django_secret_key  = "${var.django_secret_key}"
-    version            = "${var.ror-api-dev_tags["sha"]}"
+    elastic_host_dev   = var.elastic_host_dev
+    elastic_port_dev   = var.elastic_port_dev
+    access_key         = var.access_key
+    secret_key         = var.secret_key
+    region             = var.region
+    public_key         = var.public_key
+    sentry_dsn         = var.sentry_dsn
+    django_secret_key  = var.django_secret_key
+    version            = var.ror-api-dev_tags["sha"]
   }
 }
 
