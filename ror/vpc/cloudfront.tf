@@ -19,7 +19,7 @@ resource "aws_cloudfront_distribution" "site" {
     }
   }
 
-  tags {
+  tags = {
     site        = "ror"
     environment = "production"
   }

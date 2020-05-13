@@ -86,7 +86,7 @@ module "alb-community" {
 }
 
 resource "aws_lb_listener" "alb-community-http" {
-  load_balancer_arn = module.alb-community.load_balancer_id
+  load_balancer_arn = module.alb-community.this_lb_arn
   port              = "80"
   protocol          = "HTTP"
 
@@ -103,7 +103,7 @@ resource "aws_lb_listener" "alb-community-http" {
 }
 
 resource "aws_lb_listener" "alb-community" {
-  load_balancer_arn = module.alb-community.load_balancer_id
+  load_balancer_arn = module.alb-community.this_lb_arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
