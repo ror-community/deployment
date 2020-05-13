@@ -26,6 +26,6 @@ data "template_file" "bastion-user-data-cfg" {
 
   vars {
     hostname     = var.hostname
-    fqdn         = var.hostname}.ror.org"
+    fqdn         = "${var.hostname}.ror.org"
   }
 }
