@@ -39,7 +39,7 @@ data "aws_lb_listener" "alb-http" {
 data "template_file" "api_task" {
   template = file("api.json")
 
-  vars {
+  vars = {
     elastic_host       = var.elastic_host
     elastic_port       = var.elastic_port
     access_key         = var.access_key
@@ -55,7 +55,7 @@ data "template_file" "api_task" {
 data "template_file" "api-dev_task" {
   template = file("api-dev.json")
 
-  vars {
+  vars = {
     elastic_host_dev   = var.elastic_host_dev
     elastic_port_dev   = var.elastic_port_dev
     access_key         = var.access_key
