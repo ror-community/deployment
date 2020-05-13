@@ -33,7 +33,7 @@ resource "aws_lb_listener" "alb-http" {
 }
 
 resource "aws_lb_listener" "alb" {
-  load_balancer_arn = module.alb.load_balancer_id
+  load_balancer_arn = module.alb.this_lb_arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"

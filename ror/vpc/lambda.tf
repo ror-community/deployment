@@ -21,7 +21,7 @@ resource "aws_lambda_function" "index-page" {
   role = data.aws_iam_role.iam_for_lambda.arn
   handler = "index-page-runner.handler"
   runtime = "nodejs8.10"
-  source_code_hash = base64sha256(file("index-page-runner.js.zip"))
+  source_code_hash = sha256(filebase64("index-page-runner.js.zip"))
   publish = true
 }
 
@@ -33,6 +33,6 @@ resource "aws_lambda_function" "redirect" {
   role = data.aws_iam_role.iam_for_lambda.arn
   handler = "redirect-runner.handler"
   runtime = "nodejs8.10"
-  source_code_hash = base64sha256(file("redirect-runner.js.zip"))
+  source_code_hash = sha256(filebase64("redirect-runner.js.zip"))
   publish = true
 }
