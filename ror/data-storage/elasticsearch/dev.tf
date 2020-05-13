@@ -26,7 +26,7 @@ resource "aws_elasticsearch_domain" "ror-dev" {
     subnet_ids = [data.aws_subnet.private_subnet.id]
   }
 
-  tags {
+  tags = {
     Domain = "elasticsearch-ror-dev"
   }
 }
