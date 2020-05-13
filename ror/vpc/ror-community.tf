@@ -75,7 +75,7 @@ resource "aws_lb_listener_rule" "redirect_www_community" {
 module "alb-community" {
   source                        = "terraform-aws-modules/alb/aws"
   version                       = "~> v5.0"
-  load_balancer_name            = "alb-community"
+  name                          = "alb-community"
   security_groups               = [aws_security_group.lb_sg.id]
   access_logs = {
     bucket                      = aws_s3_bucket.logs.bucket
