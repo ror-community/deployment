@@ -7,12 +7,12 @@ resource "aws_elasticsearch_domain" "ror-dev" {
     instance_count = 1
   }
 
-  advanced_options {
-    rest.action.multi.allow_explicit_index = "true"
+  advanced_options = {
+    "rest.action.multi.allow_explicit_index" = "true"
   }
 
   snapshot_options {
-    automated_snapshot_start_hour = 23
+    "automated_snapshot_start_hour" = 23
   }
 
   ebs_options{
@@ -35,6 +35,6 @@ resource "aws_route53_record" "elasticsearch-ror-dev" {
    zone_id = data.aws_route53_zone.internal.zone_id
    name = "elasticsearch.dev.ror.org"
    type = "CNAME"
-   ttl = "${var.ttl}"
+   ttl = var.ttl
    records = [aws_elasticsearch_domain.ror-dev.endpoint]
 }
