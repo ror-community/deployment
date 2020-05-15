@@ -22,13 +22,13 @@ data "aws_iam_role" "ecs_tasks_execution_role" {
   name = "ecs-task-execution-role"
 }
 
-data "aws_lb" "default" {
+data "aws_lb" "alb" {
   arn  = var.lb_arn
   name = "alb"
 }
 
-data "aws_lb_listener" "default" {
-  load_balancer_arn = data.aws_lb.default.arn
+data "aws_lb_listener" "alb" {
+  load_balancer_arn = data.aws_lb.alb.arn
   port              = 443
 }
 

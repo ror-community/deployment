@@ -21,7 +21,7 @@ resource "aws_ecs_service" "api" {
   }
 
   depends_on = [
-    data.aws_lb_listener.default
+    data.aws_lb_listener.alb
   ]
 }
 
@@ -37,7 +37,7 @@ resource "aws_lb_target_group" "api" {
   }
 
   depends_on = [
-    data.aws_lb_listener.default
+    data.aws_lb_listener.alb
   ]
 }
 
@@ -69,7 +69,7 @@ resource "aws_route53_record" "split-api" {
   name = "api.ror.org"
   type = "CNAME"
   ttl = var.ttl
-  records = [data.aws_lb.default.dns_name]
+  records = [data.aws_lb.alb.dns_name]
 }
 
 # Service Discovery Namepace
