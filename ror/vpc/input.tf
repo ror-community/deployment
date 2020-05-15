@@ -58,7 +58,7 @@ data "aws_acm_certificate" "ror-community" {
 }
 
 data "aws_acm_certificate" "cloudfront" {
-  provider = "aws.use1"
+  provider = aws.use1
   domain = "ror.org"
   statuses = ["ISSUED"]
 }
@@ -92,5 +92,6 @@ data "aws_iam_role" "iam_for_lambda" {
 }
 
 data "aws_lambda_function" "index-page" {
+  provider = aws.use1
   function_name = "index-page"
 }
