@@ -8,6 +8,9 @@
 //   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 // }
 
-// resource "aws_ecs_cluster" "default" {
-//   name = "default"
-// }
+resource "aws_ecs_cluster" "default" {
+  name = "default"
+  lifecycle {
+      prevent_destroy = true
+  }
+}
