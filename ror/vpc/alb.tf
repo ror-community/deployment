@@ -12,14 +12,17 @@
 //   vpc_id                        = module.vpc.vpc_id
 // }
 
-// resource "aws_s3_bucket" "logs" {
-//   bucket = "logs.ror.org"
-//   acl    = "private"
-//   policy = data.template_file.logs.rendered
-//   tags = {
-//       Name = "ror"
-//   }
-// }
+resource "aws_s3_bucket" "logs" {
+  bucket = "logs.ror.org"
+  acl    = "private"
+  policy = data.template_file.logs.rendered
+  tags = {
+      Name = "ror"
+  }
+  lifecycle {
+      prevent_destroy = true
+  }
+}
 
 // resource "aws_lb_listener" "alb-http" {
 //   load_balancer_arn = module.alb.this_lb_arn
