@@ -33,17 +33,17 @@ data "template_file" "logs" {
   }
 }
 
-data "aws_lb" "alb" {
-  name = "alb"
-}
+// data "aws_lb" "alb" {
+//   name = "alb"
+// }
 
 // data "aws_lb" "alb-community" {
 //   name = "alb-community"
 // }
 
-data "aws_lb_target_group" "api" {
-  name = "api"
-}
+// data "aws_lb_target_group" "api" {
+//   name = "api"
+// }
 
 data "aws_acm_certificate" "ror" {
   domain = "ror.org"
@@ -81,11 +81,11 @@ data "aws_acm_certificate" "cloudfront" {
 //   bucket = "search.dev.ror.org"
 // }
 
-data "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
-}
+// data "aws_iam_role" "iam_for_lambda" {
+//   name = "iam_for_lambda"
+// }
 
-data "aws_lambda_function" "index-page" {
-  provider = aws.use1
-  function_name = "index-page"
-}
+// data "aws_lambda_function" "index-page" {
+//   provider = aws.use1
+//   function_name = "index-page"
+// }
