@@ -1,6 +1,10 @@
 resource "aws_route53_zone" "public" {
     name = "ror.org"
 
+    lifecycle {
+        prevent_destroy = true
+    }
+
     tags = {
         Environment = "public"
     }
@@ -48,4 +52,8 @@ resource "aws_route53_record" "mx-ror" {
         "10 aspmx2.googlemail.com",
         "10 aspmx3.googlemail.com"
     ]
+
+    lifecycle {
+        prevent_destroy = true
+    }
 }
