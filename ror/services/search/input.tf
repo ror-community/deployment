@@ -21,11 +21,11 @@ data "template_file" "search" {
   }
 }
 
-data "template_file" "search-dev" {
-  template = file("s3_cloudfront.json")
+// data "template_file" "search-dev" {
+//   template = file("s3_cloudfront.json")
 
-  vars = {
-    bucket_name = "search.dev.ror.org"
-  }
-}
+//   vars = {
+//     bucket_name = "search.dev.ror.org"
+//   }
+// }
 
